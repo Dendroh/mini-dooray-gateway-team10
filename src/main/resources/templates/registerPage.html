@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+</head>
+
+<body>
+<th:block th:insert="~{loginInfo :: userinfo}"></th:block>
+<div style="border: black solid 1px; padding: 10px; width: 1350px;
+         display: flex; align-items: center; margin-top: 10px">
+
+    <form th:method="post" th:action="@{/register}">
+
+        <h2 th:text="'회원가입'"></h2>
+
+        <h4 style="display: inline-block; width: 150px" th:text="'User Email : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="text" name="userEmail"/></br>
+
+        <h4 style="display: inline-block; width: 150px" th:text="'Password : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="password" name="userPassword"/></br>
+
+        <h4 style="display: inline-block; width: 150px" th:text="'User Name : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="text" name="userName"/></br></br>
+
+        <input type="submit" th:value="'회원가입'"/></br>
+    </form>
+</div>
+</body>
+
+</html>

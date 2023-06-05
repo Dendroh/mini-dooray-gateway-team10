@@ -31,6 +31,7 @@ public class SecurityConfig {
               .and()
 
             .formLogin()
+              .loginPage("/login")
               .loginProcessingUrl("/login-process")
               .usernameParameter("account_id")
               .passwordParameter("password")
@@ -38,6 +39,7 @@ public class SecurityConfig {
               .and()
 
             .oauth2Login()
+              .loginPage("/login")
               .clientRegistrationRepository(clientRegistrationRepository())
               .authorizedClientService(authorizedClientService())
               .successHandler(loginSuccessHandler())
@@ -102,7 +104,7 @@ public class SecurityConfig {
     return CommonOAuth2Provider.GITHUB.getBuilder("github")
             .clientId("168d20325ace2a4e23c0")
             .clientSecret("0cef5f0e1999de91a793a39e29c30be9255d0777")
-            .userNameAttributeName("email")
+            .userNameAttributeName("name")
             .build();
   }
 }
