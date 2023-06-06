@@ -9,10 +9,10 @@
          display: flex; align-items: center; ">
         <a href="/web"
            style="background-color: white; color: black; text-decoration: none; font-size: 16px; font-weight: bold;
-            cursor: pointer; margin-right: 220px">Dooray! Project Manager Service</a>
-        <h4 style="display: inline-block; margin-left: 10px;">Email : </h4>
+            cursor: pointer; margin-right: 180px">Dooray! Project Manager Service</a>
+        <h4 style="display: inline-block; margin-left: 30px;">Email : </h4>
         <input style="margin-left: 10px; width: 200px" type="text" name="username"/>
-        <h4 style="display: inline-block; margin-left: 10px;">Password : </h4>
+        <h4 style="display: inline-block; margin-left: 30px;">Password : </h4>
         <input style="margin-left: 10px; margin-right: auto; width: 200px" type="password" name="password"/>
         <form th:method="post" th:action="@{/login-process}">
             <input style="margin-left: 10px;" type="submit" th:value="'E-mail 로그인'"/>
@@ -30,11 +30,11 @@
          display: flex; align-items: center; ">
         <a href="/web"
            style="background-color: white; color: black; text-decoration: none; font-size: 16px; font-weight: bold;
-            cursor: pointer; margin-right: 220px">Dooray! Project Manager Service</a>
-        <h4 style="display: inline-block; margin-left: 10px;">Email : </h4>
+            cursor: pointer; margin-right: 180px">Dooray! Project Manager Service</a>
+        <h4 style="display: inline-block; margin-left: 30px;">Email : </h4>
         <input style="margin-left: 10px; width: 200px" readonly="true" type="text"
                th:value="${#authentication.principal.attributes['email']}"/>
-        <h4 style="display: inline-block; margin-left: 10px;">UserName : </h4>
+        <h4 style="display: inline-block; margin-left: 30px;">UserName : </h4>
         <input style="margin-left: 10px;  margin-right: auto; width: 200px" readonly="true" type="text"
                th:value="${#authentication.principal.attributes['name']}"/>
         <form th:method="post" th:action="@{/logout}">

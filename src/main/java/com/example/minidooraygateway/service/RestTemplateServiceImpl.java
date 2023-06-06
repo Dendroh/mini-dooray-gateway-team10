@@ -14,7 +14,7 @@ public class RestTemplateServiceImpl implements RestTemplateService{
   private final RestTemplate restTemplate;
 
   @Override
-  public Optional<LoginRequest> findUserById(String userId) {
+  public Optional<LoginRequest> findUserById(String accountId) {
     return null;
   }
 }

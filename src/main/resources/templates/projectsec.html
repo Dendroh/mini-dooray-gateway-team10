@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="projectinfo">
+
+    <h4>프로젝트 영역</h4>
+
+    <form th:method="get" th:action="@{/register}">
+        <input type="submit" th:value="'새로운 프로젝트 등록'"/>
+    </form>
+
+</div>
+
+</html>

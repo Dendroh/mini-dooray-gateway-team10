@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="taskinfo">
+
+    <h4>테스크 영역</h4>
+
+    <form th:method="get" th:action="@{/register}">
+        <input type="submit" th:value="'새로운 테스크 등록'"/>
+    </form>
+</div>
+
+</html>

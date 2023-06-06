@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="contentinfo">
+
+    <h4>컨텐츠 영역</h4>
+
+    <h5>java 백엔드 3기 교육</h5>
+    <h2>출결 및 기타 안내사항</h2>
+    <span style="background-color: red; padding: 2px" >월요일</span>
+    <span style="background-color: teal; padding: 2px" >월요일</span>
+    <span style="background-color: aquamarine; padding: 2px" >월요일</span>
+    <span style="background-color: yellow; padding: 2px" >월요일</span>
+    <span style="background-color: hotpink; padding: 2px" >월요일</span>
+    <span style="background-color: saddlebrown; padding: 2px" >월요일</span>
+    <span style="background-color: brown; padding: 2px" >월요일</span>
+    <span style="background-color: darkgreen; padding: 2px" >월요일</span>
+    <hr>
+    <h5>등록자 : 윤동현</h5>
+    <h5>프로젝트 참여 맴버 : 윤동현, 신단비, 김창석</h5>
+    <hr>
+    <h5>진행상황 : 개판인디유</h5>
+    <hr>
+    <h5><textarea th:text="'월요일 조아'" style="height: 400px; width: 710px; resize: none" readonly="readonly" ></textarea></h5>
+    <hr>
+    <th:block th:insert="~{commentsec}"></th:block>
+</div>
+
+</html>
