@@ -1,6 +1,6 @@
 package com.example.minidooraygateway.service;
 
-import com.example.minidooraygateway.domain.LoginRequest;
+import com.example.minidooraygateway.domain.AccountDto;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,18 +13,18 @@ import java.util.Collections;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
-  private final RestTemplateService restTemplateService;
+  private final RestTemplateAccountService restTemplateService;
 
-  public CustomUserDetailService(RestTemplateService restTemplateService) {
+  public CustomUserDetailService(RestTemplateAccountService restTemplateService) {
     this.restTemplateService = restTemplateService;
   }
 
   @Override
   public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-    LoginRequest loginRequest = restTemplateService.findUserById(userId)
+    AccountDto accountDto = restTemplateService.selectUserBy(userId)
             .orElseThrow(() -> new UsernameNotFoundException(userId + " not found"));
 
-    return new User(loginRequest.getEmail(), loginRequest.getPassword(),
-            Collections.singletonList(new SimpleGrantedAuthority(loginRequest.getEmail())));
+    return new User(accountDto.getEmail(), accountDto.getPassword(),
+            Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
   }
 }

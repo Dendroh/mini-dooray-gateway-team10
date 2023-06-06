@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
   @GetMapping("/")
-  public String initialMapping() {
-    return "redirect:/web";
+  public String initialPageMapping() {
+    return "redirect:/api";
   }
 
-  @GetMapping("/web")
-  public String homeMapping(Model model) {
+  @GetMapping("/api")
+  public String webPageMapping(Model model) {
     model.addAttribute("statusMessage", "로그인에 성공했습니다.");
     return "mainPage";
   }

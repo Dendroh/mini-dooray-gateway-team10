@@ -7,9 +7,12 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class LoginRequest {
+public class MemberDto {
+
+  private Integer accountId;
 
   private String email;
 
   private String password;
+
 }

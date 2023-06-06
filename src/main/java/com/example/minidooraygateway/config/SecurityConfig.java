@@ -27,13 +27,15 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
             .authorizeHttpRequests()
-              .antMatchers("/web/**").authenticated()
+              .antMatchers("/login").permitAll()
+              .antMatchers("/register").permitAll()
+              .anyRequest().authenticated()
               .and()
 
             .formLogin()
               .loginPage("/login")
               .loginProcessingUrl("/login-process")
-              .usernameParameter("account_id")
+              .usernameParameter("email")
               .passwordParameter("password")
               .successHandler(loginSuccessHandler())
               .and()
