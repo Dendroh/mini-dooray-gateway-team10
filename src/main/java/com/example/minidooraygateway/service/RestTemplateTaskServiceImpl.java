@@ -36,71 +36,90 @@ public class RestTemplateTaskServiceImpl implements RestTemplateTaskService {
     }
   }
 
+  //GET http://localhost:7070/dooray/task/{projectId}
   @Override
   public List<TaskDto> selectAllTaskBy(String projectId) {
     return null;
   }
 
+  //POST http://localhost:7070/dooray/task
+  // {taskDto}
   @Override
   public void createTaskBy(TaskDto taskDto) {
 
   }
 
+  //PUT http://localhost:7070/dooray/task
+  // {taskDto}
   @Override
   public void updateTaskBy(TaskDto taskDto) {
 
   }
 
+  //DELETE http://localhost:7070/dooray/task/{taskId}
   @Override
   public void deleteTaskBy(String taskId) {
 
   }
 
+  //GET http://localhost:7070/dooray/task/comment/{taskId}
   @Override
-  public List<CommentDto> selectAllCommentBy(String projectId) {
+  public List<CommentDto> selectAllCommentBy(String taskId) {
     return null;
   }
 
+
+  //POST http://localhost:7070/dooray/task/comment
+  // {commentDto}
   @Override
   public void createCommentBy(CommentDto commentDto) {
 
   }
 
+  //PUT http://localhost:7070/dooray/task/comment
+  // {commentDto}
   @Override
   public void updateCommentBy(CommentDto commentDto) {
 
   }
 
+  //DELETE http://localhost:7070/dooray/task/comment/{taskId}
   @Override
   public void deleteCommentBy(String commentId) {
 
   }
 
+  //GET http://localhost:7070/dooray/task/tag/{taskId}
   @Override
   public List<TagDto> selectAllTagBy(String taskId) {
     return null;
   }
 
+  //나중에
   @Override
   public void attachTag() {
 
   }
 
+  //나중에
   @Override
   public void detachTag() {
 
   }
 
+  //GET http://localhost:7070/dooray/task/milestone/{taskId}
   @Override
   public List<MileStoneDto> selectAllMileStoneBy(String taskId) {
     return null;
   }
 
+  //나중에
   @Override
   public void attachMileStone() {
 
   }
 
+  //나중에
   @Override
   public void detachMileStone() {
 

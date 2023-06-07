@@ -35,12 +35,13 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
     }
   }
 
+  //GET http://localhost:9090/accounts/accountId
   @Override
   public Optional<AccountDto> selectUserBy(String accountId) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:9090/acounts/" + accountId,
+    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:9090/accounts/" + accountId,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -51,34 +52,39 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
     }
   }
 
+  //POST http://localhost:9090/accounts
+  //accountDto
   @Override
   public void createUserBy(AccountDto accountDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(accountDto);
 
-    restTemplate.exchange("http://localhost:9090/acounts/",
+    restTemplate.exchange("http://localhost:9090/accounts/",
             HttpMethod.POST,
             httpEntity,
             new ParameterizedTypeReference<>() {});
   }
 
+  //PUT http://localhost:9090/accounts
+  //accountDto
   @Override
   public void updateUserBy(AccountDto accountDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(accountDto);
 
-    restTemplate.exchange("http://localhost:9090/acounts/",
+    restTemplate.exchange("http://localhost:9090/accounts/",
             HttpMethod.PUT,
             httpEntity,
             new ParameterizedTypeReference<>() {});
   }
 
+  //DELETE http://localhost:9090/accounts/accountId
   @Override
   public void deleteUserBy(String accountId) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    restTemplate.exchange("http://localhost:9090/acounts/" + accountId,
+    restTemplate.exchange("http://localhost:9090/accounts/" + accountId,
             HttpMethod.DELETE,
             httpEntity,
             new ParameterizedTypeReference<>() {});

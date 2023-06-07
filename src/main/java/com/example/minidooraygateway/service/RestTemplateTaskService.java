@@ -15,7 +15,7 @@ public interface RestTemplateTaskService {
   void deleteTaskBy(String taskId);
 
 
-  List<CommentDto> selectAllCommentBy(String projectId);
+  List<CommentDto> selectAllCommentBy(String taskId);
 
   void createCommentBy(CommentDto commentDto);
 
