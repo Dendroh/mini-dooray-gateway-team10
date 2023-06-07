@@ -8,11 +8,5 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class ProjectDto {
-
-  private Integer accountId;
-
-  private String email;
-
-  private String password;
-
+  
 }
