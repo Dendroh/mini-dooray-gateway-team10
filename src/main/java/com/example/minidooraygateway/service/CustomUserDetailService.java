@@ -1,6 +1,7 @@
 package com.example.minidooraygateway.service;
 
 import com.example.minidooraygateway.domain.AccountDto;
+import com.example.minidooraygateway.domain.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
     AccountDto accountDto = restTemplateService.selectUserBy(userEmail)
             .orElseThrow(() -> new UsernameNotFoundException(userEmail + " not found"));
 
-    return new User(accountDto.getEmail(), accountDto.getPassword(),
-            Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+    return new CustomUserDetails(accountDto.getEmail(), accountDto.getPassword(),
+            Collections.singletonList(new SimpleGrantedAuthority("ROLE_CUSTOM")));
   }
 }

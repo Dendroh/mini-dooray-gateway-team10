@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class RestTemplateAccountServiceImpl implements RestTemplateAccountService {
 
   private final RestTemplate restTemplate;
+
+  private final PasswordEncoder passwordEncoder;
 
   private HttpHeaders createHeaders() {
     HttpHeaders headers = new HttpHeaders();
@@ -37,41 +40,49 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
     }
   }
 
-  //GET http://localhost:9090/accounts/accountId
   @Override
   public Optional<AccountDto> selectUserBy(String accountEmail) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
+    log.info(accountEmail);
 
-    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:9090/accounts/email/" + accountEmail,
+    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/email/"+accountEmail,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
 
-    log.info(response.getBody().getEmail() + "");
-    log.info(response.getBody().getPassword() + "");
-    log.info(response.getBody().getAccountId() + "");
     if(response.getStatusCode().is2xxSuccessful()) {
-      log.info("good");
       return Optional.ofNullable(response.getBody());
     } else {
-      log.info("not good");
       return Optional.empty();
     }
   }
 
-  //POST http://localhost:9090/accounts
-  //accountDto
   @Override
-  public void createUserBy(AccountDto accountDto) {
+  public Optional<AccountDto> createUserBy(AccountDto accountDto) {
 
-    HttpEntity<String> httpEntity = createHttpEntity(accountDto);
+    AccountDto temp = new AccountDto();
+    temp.setAccountId(0);
+    temp.setEmail(accountDto.getEmail());
+    temp.setPassword(passwordEncoder.encode(accountDto.getPassword()));
 
-    restTemplate.exchange("http://localhost:9090/accounts/",
+    HttpEntity<String> httpEntity = createHttpEntity(temp);
+
+    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
             HttpMethod.POST,
             httpEntity,
             new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
   }
+
+
+
+
+
+
+
+
 
   //PUT http://localhost:9090/accounts
   //accountDto

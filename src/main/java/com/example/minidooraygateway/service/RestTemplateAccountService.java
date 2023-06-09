@@ -8,7 +8,7 @@ public interface RestTemplateAccountService {
 
   Optional<AccountDto> selectUserBy(String userId);
 
-  void createUserBy(AccountDto accountDto);
+  Optional<AccountDto> createUserBy(AccountDto accountDto);
 
   void updateUserBy(AccountDto accountDto);
 
