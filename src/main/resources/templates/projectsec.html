@@ -10,6 +10,15 @@
         <input type="submit" th:value="'새로운 프로젝트 등록'"/>
     </form>
 
+    <table>
+        <tbody>
+        <tr th:each="item, i: ${projectList}">
+            <td th:text="${item.projectTitle}"></td>
+            <td th:text="${item.projectStatus}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 </html>

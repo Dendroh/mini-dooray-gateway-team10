@@ -8,5 +8,11 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class ProjectDto {
-  
+  private Integer projectId;
+
+  private String projectTitle;
+
+  private String projectStatus;
+
+  private Integer adminId;
 }

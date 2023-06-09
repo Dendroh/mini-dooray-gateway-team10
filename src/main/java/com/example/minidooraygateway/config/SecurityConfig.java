@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @EnableWebSecurity(debug = false)
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig{
 
   @Bean
   public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {

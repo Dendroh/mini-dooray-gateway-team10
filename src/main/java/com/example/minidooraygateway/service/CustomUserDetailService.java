@@ -20,9 +20,9 @@ public class CustomUserDetailService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-    AccountDto accountDto = restTemplateService.selectUserBy(userId)
-            .orElseThrow(() -> new UsernameNotFoundException(userId + " not found"));
+  public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    AccountDto accountDto = restTemplateService.selectUserBy(userEmail)
+            .orElseThrow(() -> new UsernameNotFoundException(userEmail + " not found"));
 
     return new User(accountDto.getEmail(), accountDto.getPassword(),
             Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));

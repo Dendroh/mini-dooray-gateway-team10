@@ -1,17 +1,17 @@
 package com.example.minidooraygateway.service;
 
-import com.example.minidooraygateway.domain.MemberDto;
-import com.example.minidooraygateway.domain.MileStoneDto;
-import com.example.minidooraygateway.domain.ProjectDto;
-import com.example.minidooraygateway.domain.TagDto;
+import com.example.minidooraygateway.domain.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -38,8 +38,19 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
 
   //GET http://localhost:7070/dooray/project/{accountId}
   @Override
-  public List<ProjectDto> selectAllProjectBy(String accountId) {
-    return null;
+  public List<ProjectDto> selectAllProjectBy(String accountEmail) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    ResponseEntity<List<ProjectDto>> response = restTemplate.exchange("http://localhost:8081/dooray/project/" + 1,
+            HttpMethod.GET,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return new ArrayList<>();
+    }
   }
 
   //POST http://localhost:7070/dooray/project

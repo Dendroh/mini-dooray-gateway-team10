@@ -9,6 +9,16 @@
     <form th:method="get" th:action="@{/register}">
         <input type="submit" th:value="'새로운 테스크 등록'"/>
     </form>
+
+    <table>
+        <tbody>
+        <tr th:each="item, i: ${taskList}">
+            <td th:text="${item.taskName}"></td>
+            <td th:text="${item.taskwriteTime}"></td>
+            <td th:text="${item.taskwriter}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </html>

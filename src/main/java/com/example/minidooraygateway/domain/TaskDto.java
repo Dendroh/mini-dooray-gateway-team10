@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class TaskDto {
+  private Integer taskId;
 
-  private Integer accountId;
+  private String taskName;
 
-  private String email;
-
-  private String password;
+  private String taskContent;
 
 }
