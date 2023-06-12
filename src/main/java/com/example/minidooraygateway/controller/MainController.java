@@ -57,4 +57,19 @@ public class MainController {
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     return "viewTask";
   }
+
+
+  @GetMapping("/api/projectEdit")
+  public String projectEditMapping(Model model, Principal principal) {
+    model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 프로젝트를 수정합니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
+    return "editProject";
+  }
+
+  @GetMapping("/api/taskEdit")
+  public String taskEditMapping(Model model, Principal principal) {
+    model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 테스크를 수정합니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
+    return "editTask";
+  }
 }

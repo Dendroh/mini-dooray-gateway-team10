@@ -1,32 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="projectinfo">
     <table>
         <tr th:each="item, i: ${projectList}">
             <td>
-                <div style="border: black solid 1px; width: 300px;">
+                <div style="border: black solid 1px; width: 350px;">
                     <div style="margin: 10px;">
-                        <a href="/api/projectView"
-                           style="background-color: white; color: black; text-decoration: none; font-size: 16px; margin: 0px"
-                           th:text="${item.projectTitle}"></a>
+                        <div style="display: flex; justify-content: space-between;">
+                            <a href="/api/projectView"
+                               style="background-color: white; color: black; text-decoration: none; font-size: 20px; font-weight: bold; margin-left: 15px;"
+                               th:text="${item.projectTitle}"></a>
+                            <div style="margin-left: 15px">
+                                <a href="/api/projectEdit" style="font-size: 13px;">수정</a>
+                                <a href="/api/projectEdit" style="font-size: 13px;">삭제</a>
+                            </div>
+                        </div>
+                        <hr>
                         <details th:each="item, i: ${projectList}">
-                            <summary>Dooray Task</summary>
-                            <a href="/api/taskView"
-                               style="background-color: white; color: black; text-decoration: none; font-size: 16px; margin: 15px"
-                               th:text="${item.projectTitle}"></a><br>
+                            <summary>Task List</summary>
+                            <hr>
+                            <div style="display: flex; justify-content: space-between;">
+                                <a href="/api/taskView"
+                                   style="background-color: white; color: black; text-decoration: none; font-size: 16px; margin-left: 25px;"
+                                   th:text="'- '+${item.projectTitle}"></a>
+                                <div style="margin-left: 15px">
+                                    <a href="/api/taskEdit" style="font-size: 13px;">수정</a>
+                                    <a href="/api/taskEdit" style="font-size: 13px;">삭제</a>
+                                </div>
+                            </div>
                         </details>
+                        <hr>
                     </div>
-                    <form th:method="get" th:action="@{/api/taskRegister}" >
-                        <input type="submit" th:value="'새로운 테스크 등록'" style="margin: 10px; margin-top: 20px"/>
+                    <form th:method="get" th:action="@{/api/taskRegister}">
+                        <input type="submit" th:value="'새로운 테스크 등록'" style="margin: 20px 10px 10px;"/>
                     </form>
                 </div>
             </td>
         </tr>
     </table>
     <form th:method="get" th:action="@{/api/projectRegister}">
-        <input type="submit" th:value="'새로운 프로젝트 등록'" style="margin: 10px; margin-top: 20px"/>
+        <input type="submit" th:value="'새로운 프로젝트 등록'" style="margin: 20px 10px 10px;"/>
     </form>
 </div>
 </html>

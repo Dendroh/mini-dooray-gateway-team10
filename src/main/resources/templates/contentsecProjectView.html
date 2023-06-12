@@ -13,35 +13,13 @@
     <table>
         <tr th:each="item, i: ${projectList}">
             <td>
-                <div style="border: gray solid 1px; width: 900px; height: 40px; padding: 5px">
-                    <span>이름:</span>
-                    <span>윤동현</span>
-                    <span style="margin-left: 20px">이메일:</span>
-                    <span>example1@gmail.com</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr th:each="item, i: ${projectList}">
-            <td>
-                <div style="border: gray solid 1px; width: 900px; height: 40px; padding: 5px">
-                    <span>이름:</span>
-                    <span>신단비</span>
-                    <span style="margin-left: 20px">이메일:</span>
-                    <span>example1@gmail.com</span>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr th:each="item, i: ${projectList}">
-            <td>
-                <div style="border: gray solid 1px; width: 900px; height: 40px; padding: 5px">
-                    <span>이름:</span>
-                    <span>김창석</span>
-                    <span style="margin-left: 20px">이메일:</span>
-                    <span>example1@gmail.com</span>
+                <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+                    <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+                        <span style="font-size: 12px">윤동현</span>
+                    </div>
+                    <div style="flex: 6; padding: 5px">
+                        <span style="font-size: 12px">eatpaper1429@gmail.com</span>
+                    </div>
                 </div>
             </td>
         </tr>

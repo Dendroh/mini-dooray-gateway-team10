@@ -4,15 +4,16 @@
 
 <div th:fragment="contentinfo">
     <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
-    <h3>기말평가</h3>
+    <h3>자바 스프링 공부</h3>
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록자</p>
     <h3>윤동현</h3>
     <hr>
-    <p style="font-size: 12px; color: dimgray;">테스크 본문 타이틀</p>
-    <textarea th:text="'테스크 본문'" style="height: 400px; width: 900px; resize: none" readonly="readonly" ></textarea>
+    <p style="font-size: 12px; color: dimgray;">테스크 본문</p>
+    <textarea th:text="'스프링 부트에서 배운거 전부 적용하기!'" style="height: 400px; width: 900px; resize: none; border: none;" readonly="readonly" ></textarea>
     <hr>
     <th:block th:insert="~{commentsec}"></th:block>
+    <hr>
 </div>
 
 </html>
