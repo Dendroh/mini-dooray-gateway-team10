@@ -33,9 +33,20 @@
                 </td>
             </tr>
         </table>
+        <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+            <select name="milestone">
+                <option value="apple">Apple</option>
+            </select>
+            <input type="submit" th:value="'새로운 멤버 등록'"/>
+        </form>
+        <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+            <select name="milestone">
+                <option value="apple">Apple</option>
+            </select>
+            <input type="submit" th:value="'멤버 삭제'"/>
+        </form>
         <hr>
         <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
-
         <table>
             <tr th:each="item, i: ${projectList}">
                 <td>
@@ -43,13 +54,19 @@
                 </td>
             </tr>
         </table>
-        <br>
         <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
             <input type="text" name="milestone"/>
             <input type="submit" th:value="'새로운 진행상황 저장'"/>
             <br>
         </form>
+        <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+            <select name="milestone">
+                <option value="apple">Apple</option>
+            </select>
+            <input type="submit" th:value="'진행상황 삭제'"/>
+        </form>
         <hr>
+        <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
         <table>
             <tr th:each="item, i: ${projectList}">
                 <td>
@@ -57,12 +74,16 @@
                 </td>
             </tr>
         </table>
-        <br>
-        <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
         <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
             <input type="text" name="tag"/>
             <input type="submit" th:value="'새로운 태그 저장'"/>
             <br>
+        </form>
+        <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+            <select name="milestone">
+                <option value="apple">Apple</option>
+            </select>
+            <input type="submit" th:value="'태그 삭제'"/>
         </form>
         <hr>
         <p style="font-size: 12px; color: dimgray;">수정완료</p>

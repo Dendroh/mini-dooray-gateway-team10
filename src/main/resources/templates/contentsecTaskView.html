@@ -17,15 +17,13 @@
     </div>
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록 진행도</p>
-
     <table>
         <tr th:each="item, i: ${projectList}">
             <td>
-                <span>마일스톤</span>
+                <span>진행상황</span>
             </td>
         </tr>
     </table>
-
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록 태그</p>
     <table>
@@ -35,7 +33,6 @@
             </td>
         </tr>
     </table>
-
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 본문</p>
     <textarea th:text="'스프링 부트에서 배운거 전부 적용하기!'" style="height: 200px; width: 900px; resize: none; border: none;"
@@ -46,7 +43,6 @@
         <textarea style="height: 40px; width: 700px; resize: none;"></textarea><br>
         <input type="submit" th:value="'코멘트 남기기'"/>
     </form>
-    <br>
     <th:block th:insert="~{commentsec}"></th:block>
     <hr>
 </div>

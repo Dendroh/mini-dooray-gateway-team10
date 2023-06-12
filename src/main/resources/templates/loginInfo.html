@@ -51,6 +51,10 @@
                    th:value="'GitHub 로그인 유저'"/>
         </div>
 
+        <form th:method="get" th:action="@{/userInfoPage}">
+            <input style="margin-left: 10px;" type="submit" th:value="'유저정보'"/>
+        </form>
+
         <form th:method="post" th:action="@{/logout}">
             <input style="margin-left: 10px;" type="submit" th:value="'로그아웃'"/>
         </form>
