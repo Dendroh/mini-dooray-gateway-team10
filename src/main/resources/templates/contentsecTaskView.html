@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 
 <div th:fragment="contentinfo">
     <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
     <h3>자바 스프링 공부</h3>
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록자</p>
-    <h3>윤동현</h3>
+    <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+        <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+            <span style="font-size: 12px">윤동현</span>
+        </div>
+        <div style="flex: 6; padding: 5px">
+            <span style="font-size: 12px">eatpaper1429@gmail.com</span>
+        </div>
+    </div>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록 진행도</p>
+
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <span>마일스톤</span>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록 태그</p>
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <span>태그, 태그, 태그, 태그, 태그, 태그</span>
+            </td>
+        </tr>
+    </table>
+
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 본문</p>
-    <textarea th:text="'스프링 부트에서 배운거 전부 적용하기!'" style="height: 400px; width: 900px; resize: none; border: none;" readonly="readonly" ></textarea>
+    <textarea th:text="'스프링 부트에서 배운거 전부 적용하기!'" style="height: 200px; width: 900px; resize: none; border: none;"
+              readonly="readonly"></textarea>
     <hr>
+    <p style="font-size: 12px; color: dimgray;">코멘트</p>
+    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+        <textarea style="height: 40px; width: 700px; resize: none;"></textarea><br>
+        <input type="submit" th:value="'코멘트 남기기'"/>
+    </form>
+    <br>
     <th:block th:insert="~{commentsec}"></th:block>
     <hr>
 </div>

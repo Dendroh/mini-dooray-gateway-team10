@@ -6,8 +6,15 @@
     <p style="font-size: 12px; color: dimgray;">프로젝트 타이틀</p>
     <h3>자바 백엔드 개발 3기 교육 프로젝트</h3>
     <hr>
-    <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
-    <h3>4%</h3>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 관리자</p>
+    <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+        <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+            <span style="font-size: 12px">윤동현</span>
+        </div>
+        <div style="flex: 6; padding: 5px">
+            <span style="font-size: 12px">eatpaper1429@gmail.com</span>
+        </div>
+    </div>
     <hr>
     <p style="font-size: 12px; color: dimgray;">프로젝트 참여인원</p>
     <table>
@@ -25,15 +32,25 @@
         </tr>
     </table>
     <hr>
-    <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
     <table>
         <tr th:each="item, i: ${projectList}">
             <td>
-                <span>태그</span>
+                <span>진행상황</span>
             </td>
         </tr>
     </table>
     <hr>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <span>태그, 태그, 태그, 태그, 태그, 태그</span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+
 </div>
 
 </html>
