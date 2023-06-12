@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
+<div th:fragment="contentinfo">
+    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+        <p style="font-size: 12px; color: dimgray;">프로젝트 타이틀</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; border-bottom: black 1px solid" type="text" name="email"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; border-bottom: black 1px solid" type="text" name="email"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">프로젝트 참여인원</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; border-bottom: black 1px solid" type="text" name="email"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; border-bottom: black 1px solid" type="text" name="email"/></br>
+        <hr>
+    </form>
+</div>
+
+</html>

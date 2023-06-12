@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="contentinfo">
+    <p style="font-size: 12px; color: dimgray;">프로젝트 타이틀</p>
+    <h3>자바 백엔드 개발 3기 교육 프로젝트</h3>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
+    <h3>4%</h3>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 참여인원</p>
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <div style="border: gray solid 1px; width: 900px; height: 40px; padding: 5px">
+                    <span>이름:</span>
+                    <span>윤동현</span>
+                    <span style="margin-left: 20px">이메일:</span>
+                    <span>example1@gmail.com</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <div style="border: gray solid 1px; width: 900px; height: 40px; padding: 5px">
+                    <span>이름:</span>
+                    <span>신단비</span>
+                    <span style="margin-left: 20px">이메일:</span>
+                    <span>example1@gmail.com</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <div style="border: gray solid 1px; width: 900px; height: 40px; padding: 5px">
+                    <span>이름:</span>
+                    <span>김창석</span>
+                    <span style="margin-left: 20px">이메일:</span>
+                    <span>example1@gmail.com</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
+    <table>
+        <tr th:each="item, i: ${projectList}">
+            <td>
+                <span>태그</span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+</div>
+
+</html>

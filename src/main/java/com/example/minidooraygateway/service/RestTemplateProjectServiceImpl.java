@@ -36,12 +36,24 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
     }
   }
 
-  //GET http://localhost:7070/dooray/project/{accountId}
   @Override
-  public List<ProjectDto> selectAllProjectBy(String accountEmail) {
+  public Optional<ProjectDto> createProjectBy(ProjectDto projectDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(projectDto);
+
+    ResponseEntity<ProjectDto> response = restTemplate.exchange("http://localhost:8082/projects/",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public ProjectDto selectAllProjectBy(String accountEmail) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    ResponseEntity<List<ProjectDto>> response = restTemplate.exchange("http://localhost:8081/dooray/project/" + 1,
+    ResponseEntity<ProjectDto> response = restTemplate.exchange("http://localhost:8082/projects/" + accountEmail,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -49,16 +61,10 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
     if(response.getStatusCode().is2xxSuccessful()) {
       return response.getBody();
     } else {
-      return new ArrayList<>();
+      return null;
     }
   }
 
-  //POST http://localhost:7070/dooray/project
-  //{projectDto}
-  @Override
-  public void createProjectBy(ProjectDto projectDto) {
-
-  }
 
   //PUT http://localhost:7070/dooray/project
   //{projectDto}

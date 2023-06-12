@@ -3,12 +3,13 @@ package com.example.minidooraygateway.service;
 import com.example.minidooraygateway.domain.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RestTemplateProjectService {
 
-  List<ProjectDto> selectAllProjectBy(String accountId);
+  ProjectDto selectAllProjectBy(String accountId);
 
-  void createProjectBy(ProjectDto projectDto);
+  Optional<ProjectDto> createProjectBy(ProjectDto projectDto);
 
   void updateProjectBy(ProjectDto projectDto);
 

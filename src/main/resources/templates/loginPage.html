@@ -12,14 +12,9 @@
 <div sec:authorize="!isAuthenticated()"
      style="border: black solid 1px; width: 1370px; height: 1050px;
          display: flex; align-items: stretch; margin-top: 10px; flex-direction: row;">
-    <div style="flex: 2; border-right: 1px solid #000; padding: 10px">
-        <th:block th:insert="~{projectsec}"></th:block>
+    <div style="flex: 1; border-right: 1px solid #000; padding: 10px">
     </div>
-    <div style="flex: 3; border-right: 1px solid #000; padding: 10px">
-        <th:block th:insert="~{tasksec}"></th:block>
-    </div>
-    <div style="flex: 6; padding: 10px">
-        <th:block th:insert="~{contentsec}"></th:block>
+    <div style="flex: 3; padding: 10px">
     </div>
 </div>
 

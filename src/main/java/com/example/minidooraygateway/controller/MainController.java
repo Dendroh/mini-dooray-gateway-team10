@@ -23,9 +23,38 @@ public class MainController {
     return "redirect:/api";
   }
 
-  @GetMapping("/api")
+  @GetMapping("/api/**")
   public String webPageMapping(Model model, Principal principal) {
     model.addAttribute("statusMessage", "로그인에 성공했습니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     return "mainPage";
+  }
+
+  @GetMapping("/api/projectRegister")
+  public String projectRegisterMapping(Model model, Principal principal) {
+    model.addAttribute("statusMessage", "새로운 프로젝트를 등록합니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
+    return "registerProject";
+  }
+
+  @GetMapping("/api/taskRegister")
+  public String taskRegisterMapping(Model model, Principal principal) {
+    model.addAttribute("statusMessage", "새로운 테스크를 등록합니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
+    return "registerTask";
+  }
+
+  @GetMapping("/api/projectView")
+  public String projectViewMapping(Model model, Principal principal) {
+    model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 프로젝트입니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
+    return "viewProject";
+  }
+
+  @GetMapping("/api/taskView")
+  public String taskViewMapping(Model model, Principal principal) {
+    model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 테스크입니다.");
+    model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
+    return "viewTask";
   }
 }

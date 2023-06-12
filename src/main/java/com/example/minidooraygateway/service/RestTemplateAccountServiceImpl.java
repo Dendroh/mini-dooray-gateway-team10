@@ -41,6 +41,24 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
   }
 
   @Override
+  public Optional<AccountDto> createUserBy(AccountDto accountDto) {
+
+    AccountDto temp = new AccountDto();
+    temp.setAccountId(0);
+    temp.setEmail(accountDto.getEmail());
+    temp.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+
+    HttpEntity<String> httpEntity = createHttpEntity(temp);
+
+    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
   public Optional<AccountDto> selectUserBy(String accountEmail) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
@@ -58,23 +76,6 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
     }
   }
 
-  @Override
-  public Optional<AccountDto> createUserBy(AccountDto accountDto) {
-
-    AccountDto temp = new AccountDto();
-    temp.setAccountId(0);
-    temp.setEmail(accountDto.getEmail());
-    temp.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-
-    HttpEntity<String> httpEntity = createHttpEntity(temp);
-
-    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
-            HttpMethod.POST,
-            httpEntity,
-            new ParameterizedTypeReference<>() {});
-
-    return Optional.ofNullable(response.getBody());
-  }
 
 
 

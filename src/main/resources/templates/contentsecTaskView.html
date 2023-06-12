@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="contentinfo">
+    <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
+    <h3>기말평가</h3>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록자</p>
+    <h3>윤동현</h3>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 본문 타이틀</p>
+    <textarea th:text="'테스크 본문'" style="height: 400px; width: 900px; resize: none" readonly="readonly" ></textarea>
+    <hr>
+    <th:block th:insert="~{commentsec}"></th:block>
+</div>
+
+</html>
