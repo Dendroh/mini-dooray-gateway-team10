@@ -7,35 +7,46 @@ import java.util.Optional;
 
 public interface RestTemplateProjectService {
 
-  ProjectDto selectAllProjectBy(String accountId);
+  List<ProjectDto> selectAllProjectBy(String accountEmail);
 
-  Optional<ProjectDto> createProjectBy(ProjectDto projectDto);
+  Optional<ProjectDto> createProjectBy(ProjectRegisterDto projectRegisterDto);
 
-  void updateProjectBy(ProjectDto projectDto);
-
-
-  List<TagDto> selectAllTagBy(String projectId);
-
-  void createTagBy(TagDto tagDto);
-
-  void updateTagBy(TagDto tagDto);
-
-  void deleteTagBy(String tagId);
-
-
-  List<MileStoneDto> selectAllMileStoneBy(String projectId);
-
-  void createMileStoneBy(MileStoneDto mileStoneDto);
-
-  void updateMileStoneBy(MileStoneDto mileStoneDto);
-
-  void deleteMileStoneBy(String mileStoneId);
-
+  ProjectDto selectProjectBy (String projectId);
 
   List<MemberDto> selectAllMemberBy(String projectId);
 
-  void attachMember();
+  List<ProjectTaskDto> selectAllTaskBy(String accountEmail);
 
-  void detachMember();
+
+
+
+
+
+//  void updateProjectBy(ProjectDto projectDto);
+//
+//
+//  List<TagDto> selectAllTagBy(String projectId);
+//
+//  void createTagBy(TagDto tagDto);
+//
+//  void updateTagBy(TagDto tagDto);
+//
+//  void deleteTagBy(String tagId);
+//
+//
+//  List<MileStoneDto> selectAllMileStoneBy(String projectId);
+//
+//  void createMileStoneBy(MileStoneDto mileStoneDto);
+//
+//  void updateMileStoneBy(MileStoneDto mileStoneDto);
+//
+//  void deleteMileStoneBy(String mileStoneId);
+//
+//
+//  List<MemberDto> selectAllMemberBy(String projectId);
+//
+//  void attachMember();
+//
+//  void detachMember();
 
 }

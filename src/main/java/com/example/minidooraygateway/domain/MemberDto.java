@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberDto {
 
-  private Integer accountId;
+  private Integer memberId;
 
-  private String email;
+  private String memberName;
 
-  private String password;
+  private String memberEmail;
 
 }

@@ -1,10 +1,14 @@
 package com.example.minidooraygateway.controller;
 
+import com.example.minidooraygateway.domain.AccountDto;
+import com.example.minidooraygateway.domain.ProjectDto;
+import com.example.minidooraygateway.domain.ProjectRegisterDto;
 import com.example.minidooraygateway.service.RestTemplateProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -39,8 +43,21 @@ public class MainController {
   @GetMapping("/api/projectRegister")
   public String projectRegisterMapping(Model model, Principal principal) {
     model.addAttribute("statusMessage", "새로운 프로젝트를 등록합니다.");
+    model.addAttribute("adminEmail", principal.getName());
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     return "registerProject";
+  }
+
+  @PostMapping("/api/projectRegister")
+  public String projectRegisterPosting(Model model, Principal principal, @ModelAttribute("projectRegisterDto") ProjectRegisterDto projectRegisterDto,
+                                       BindingResult bindingResult) {
+    model.addAttribute("statusMessage", "새로운 프로젝트를 등록했습니다.");
+    if(restTemplateProjectService.createProjectBy(projectRegisterDto).isPresent()) {
+      model.addAttribute("statusMessage", "회원가입에 성공했습니다!");
+    } else {
+      model.addAttribute("statusMessage", "회원가입에 실패했습니다!");
+    }
+    return "redirect:/api";
   }
 
   @GetMapping("/api/taskRegister")
@@ -51,8 +68,10 @@ public class MainController {
   }
 
   @GetMapping("/api/projectView")
-  public String projectViewMapping(Model model, Principal principal) {
+  public String projectViewMapping(Model model, Principal principal, @RequestParam("projectId") String projectId) {
     model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 프로젝트입니다.");
+    model.addAttribute("projectView", restTemplateProjectService.selectProjectBy(projectId));
+    model.addAttribute("memberView", restTemplateProjectService.selectAllMemberBy(projectId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     return "viewProject";
   }
@@ -64,10 +83,11 @@ public class MainController {
     return "viewTask";
   }
 
-
   @GetMapping("/api/projectEdit")
-  public String projectEditMapping(Model model, Principal principal) {
+  public String projectEditMapping(Model model, Principal principal, @RequestParam("projectId") String projectId) {
     model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 프로젝트를 수정합니다.");
+    model.addAttribute("projectView", restTemplateProjectService.selectProjectBy(projectId));
+    model.addAttribute("memberView", restTemplateProjectService.selectAllMemberBy(projectId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     return "editProject";
   }

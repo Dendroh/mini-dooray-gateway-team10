@@ -3,23 +3,23 @@
 
 <div th:fragment="projectinfo">
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="project, i: ${projectList}">
             <td>
                 <div style="border: black solid 1px; width: 350px;">
                     <div style="margin: 10px;">
                         <div style="display: flex; justify-content: space-between;">
-                            <a href="/api/projectView"
+                            <a th:href="@{/api/projectView(projectId=${project.projectId})}"
                                style="background-color: white; color: black; text-decoration: none; font-size: 20px; font-weight: bold; margin-left: 15px;"
-                               th:text="${item.projectTitle}"></a>
+                               th:text="${project.projectTitle}"></a>
                             <div style="margin-left: 15px">
-                                <a href="/api/projectEdit" style="font-size: 13px;">수정</a>
+                                <a th:href="@{/api/projectEdit(projectId=${project.projectId})}" style="font-size: 13px;">수정</a>
                             </div>
                         </div>
                         <hr>
-                        <details th:each="item, i: ${projectList}">
+                        <details>
                             <summary>Task List</summary>
                             <hr>
-                            <div style="display: flex; justify-content: space-between;">
+                            <div th:each="item, i: ${projectList}" style="display: flex; justify-content: space-between;">
                                 <a href="/api/taskView"
                                    style="background-color: white; color: black; text-decoration: none; font-size: 16px; margin-left: 25px;"
                                    th:text="'- '+${item.projectTitle}"></a>

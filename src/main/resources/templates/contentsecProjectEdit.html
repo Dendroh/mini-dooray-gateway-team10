@@ -4,35 +4,39 @@
 
 <div th:fragment="contentinfo">
     <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
+
         <p style="font-size: 12px; color: dimgray;">프로젝트 타이틀</p>
-        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; margin-top: 0.5em; margin-bottom: 0.5em"
-               type="text" name="email"/></br>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none;"
+               type="text" name="title" th:value="${projectView.projectTitle}"/></br>
         <hr>
+
         <p style="font-size: 12px; color: dimgray;">프로젝트 관리자</p>
         <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
             <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
-                <span style="font-size: 12px">윤동현</span>
+                <p style="font-size: 12px;" th:text="${projectView.adminName}"></p>
             </div>
             <div style="flex: 6; padding: 5px">
-                <span style="font-size: 12px">eatpaper1429@gmail.com</span>
+                <p style="font-size: 12px;" th:text="${projectView.adminEmail}"></p>
             </div>
         </div>
         <hr>
+
         <p style="font-size: 12px; color: dimgray;">프로젝트 참여인원</p>
         <table>
-            <tr th:each="item, i: ${projectList}">
+            <tr th:each="item, i: ${memberView}">
                 <td>
                     <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
                         <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
-                            <span style="font-size: 12px">윤동현</span>
+                            <p style="font-size: 12px;" th:text="${item.memberName}"></p>
                         </div>
                         <div style="flex: 6; padding: 5px">
-                            <span style="font-size: 12px">eatpaper1429@gmail.com</span>
+                            <p style="font-size: 12px;" th:text="${item.memberEmail}"></p>
                         </div>
                     </div>
                 </td>
             </tr>
         </table>
+
         <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
             <select name="milestone">
                 <option value="apple">Apple</option>

@@ -7,16 +7,11 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class ProjectDto {
+public class ProjectTaskDto {
+  private Integer taskId;
 
-  private Integer projectId;
+  private String taskName;
 
-  private String projectTitle;
-
-  private String codeName;
-
-  private String adminName;
-
-  private String adminEmail;
+  private String taskContent;
 
 }
