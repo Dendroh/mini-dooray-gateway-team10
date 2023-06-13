@@ -15,10 +15,6 @@ public interface RestTemplateProjectService {
 
   List<MemberDto> selectAllMemberBy(String projectId);
 
-  List<ProjectTaskDto> selectAllTaskBy(String accountEmail);
-
-
-
 
 
 

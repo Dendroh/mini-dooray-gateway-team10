@@ -96,20 +96,4 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
     }
   }
 
-
-  @Override
-  public List<ProjectTaskDto> selectAllTaskBy(String projectId) {
-    HttpEntity<String> httpEntity = createHttpEntity(null);
-
-    ResponseEntity<List<ProjectTaskDto>> response = restTemplate.exchange("http://localhost:8082/projects/members/id/" + projectId,
-            HttpMethod.GET,
-            httpEntity,
-            new ParameterizedTypeReference<>() {});
-
-    if(response.getStatusCode().is2xxSuccessful()) {
-      return response.getBody();
-    } else {
-      return null;
-    }
-  }
 }

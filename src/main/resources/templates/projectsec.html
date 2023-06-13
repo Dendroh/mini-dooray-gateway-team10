@@ -18,15 +18,23 @@
                         <hr>
                         <details>
                             <summary>Task List</summary>
+
                             <hr>
-                            <div th:each="item, i: ${projectList}" style="display: flex; justify-content: space-between;">
-                                <a href="/api/taskView"
+
+                            <div th:each="task, i: ${taskList}"
+                                 th:if="${task.projectId} == ${project.projectId}"
+                                 style="display: flex; justify-content: space-between;">
+
+                                <a th:href="@{/api/taskView(taskId=${task.taskId})}"
                                    style="background-color: white; color: black; text-decoration: none; font-size: 16px; margin-left: 25px;"
-                                   th:text="'- '+${item.projectTitle}"></a>
+                                   th:text="'- '+${task.taskName}"></a>
+
                                 <div style="margin-left: 15px">
-                                    <a href="/api/taskEdit" style="font-size: 13px;">수정</a>
+                                    <a th:href="@{/api/taskEdit(taskId=${task.taskId})}" style="font-size: 13px;">수정</a>
                                 </div>
+
                             </div>
+
                         </details>
                         <hr>
                     </div>

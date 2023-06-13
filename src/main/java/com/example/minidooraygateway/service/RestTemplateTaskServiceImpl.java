@@ -1,17 +1,16 @@
 package com.example.minidooraygateway.service;
 
-import com.example.minidooraygateway.domain.CommentDto;
-import com.example.minidooraygateway.domain.MileStoneDto;
-import com.example.minidooraygateway.domain.TagDto;
-import com.example.minidooraygateway.domain.TaskDto;
+import com.example.minidooraygateway.domain.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -36,92 +35,48 @@ public class RestTemplateTaskServiceImpl implements RestTemplateTaskService {
     }
   }
 
-  //GET http://localhost:7070/dooray/task/{projectId}
   @Override
-  public List<TaskDto> selectAllTaskBy(String projectId) {
-    return null;
+  public Optional<TaskDto> createTaskBy(TaskRegisterDto taskRegisterDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(taskRegisterDto);
+
+    ResponseEntity<TaskDto> response = restTemplate.exchange("http://localhost:8082/projects/",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
   }
 
-  //POST http://localhost:7070/dooray/task
-  // {taskDto}
   @Override
-  public void createTaskBy(TaskDto taskDto) {
+  public List<ProjectTaskDto> selectAllTaskBy(String accountEmail) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
 
+    ResponseEntity<List<ProjectTaskDto>> response = restTemplate.exchange("http://localhost:8082/task/memberEmail/" + accountEmail,
+            HttpMethod.GET,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return null;
+    }
   }
 
-  //PUT http://localhost:7070/dooray/task
-  // {taskDto}
   @Override
-  public void updateTaskBy(TaskDto taskDto) {
+  public ProjectTaskDto selectTaskBy(String taskId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
 
-  }
+    ResponseEntity<ProjectTaskDto> response = restTemplate.exchange("http://localhost:8082/task/id/" + taskId,
+            HttpMethod.GET,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
 
-  //DELETE http://localhost:7070/dooray/task/{taskId}
-  @Override
-  public void deleteTaskBy(String taskId) {
-
-  }
-
-  //GET http://localhost:7070/dooray/task/comment/{taskId}
-  @Override
-  public List<CommentDto> selectAllCommentBy(String taskId) {
-    return null;
-  }
-
-
-  //POST http://localhost:7070/dooray/task/comment
-  // {commentDto}
-  @Override
-  public void createCommentBy(CommentDto commentDto) {
-
-  }
-
-  //PUT http://localhost:7070/dooray/task/comment
-  // {commentDto}
-  @Override
-  public void updateCommentBy(CommentDto commentDto) {
-
-  }
-
-  //DELETE http://localhost:7070/dooray/task/comment/{taskId}
-  @Override
-  public void deleteCommentBy(String commentId) {
-
-  }
-
-  //GET http://localhost:7070/dooray/task/tag/{taskId}
-  @Override
-  public List<TagDto> selectAllTagBy(String taskId) {
-    return null;
-  }
-
-  //나중에
-  @Override
-  public void attachTag() {
-
-  }
-
-  //나중에
-  @Override
-  public void detachTag() {
-
-  }
-
-  //GET http://localhost:7070/dooray/task/milestone/{taskId}
-  @Override
-  public List<MileStoneDto> selectAllMileStoneBy(String taskId) {
-    return null;
-  }
-
-  //나중에
-  @Override
-  public void attachMileStone() {
-
-  }
-
-  //나중에
-  @Override
-  public void detachMileStone() {
-
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return null;
+    }
   }
 }
