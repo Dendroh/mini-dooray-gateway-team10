@@ -1,7 +1,11 @@
 package com.example.minidooraygateway.controller;
 
+import com.example.minidooraygateway.domain.AccountDetailsPostDto;
 import com.example.minidooraygateway.domain.AccountDto;
+import com.example.minidooraygateway.domain.MemberDto;
+import com.example.minidooraygateway.domain.MemberRegisterDto;
 import com.example.minidooraygateway.service.RestTemplateAccountService;
+import com.example.minidooraygateway.service.RestTemplateProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,8 @@ import java.security.Principal;
 public class LoginController {
 
   private final RestTemplateAccountService restTemplateAccountService;
+
+  private final RestTemplateProjectService restTemplateProjectService;
 
   @GetMapping("/login")
   public String loginPageMapping(Model model, Principal principal) {
@@ -40,6 +46,17 @@ public class LoginController {
   public String registerNewAccount(Model model, Principal principal, @ModelAttribute("RegisterRequest") AccountDto accountDto,
                                    BindingResult bindingResult) {
     if(restTemplateAccountService.createUserBy(accountDto).isPresent()) {
+
+      AccountDetailsPostDto accountDetailsPostDto = new AccountDetailsPostDto();
+      accountDetailsPostDto.setName(accountDto.getName());
+      accountDetailsPostDto.setAccountEmail(accountDto.getEmail());
+      restTemplateAccountService.createUserDetailBy(accountDetailsPostDto);
+
+      MemberRegisterDto memberRegisterDto = new MemberRegisterDto();
+      memberRegisterDto.setMemberName(accountDto.getName());
+      memberRegisterDto.setMemberEmail(accountDto.getEmail());
+      restTemplateProjectService.createMemberBy(memberRegisterDto);
+
       model.addAttribute("statusMessage", "회원가입에 성공했습니다!");
     } else {
       model.addAttribute("statusMessage", "회원가입에 실패했습니다!");

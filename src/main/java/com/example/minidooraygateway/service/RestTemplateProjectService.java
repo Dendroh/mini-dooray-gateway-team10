@@ -13,10 +13,18 @@ public interface RestTemplateProjectService {
 
   ProjectDto selectProjectBy (String projectId);
 
-  List<MemberDto> selectAllMemberBy(String projectId);
+  List<MemberDto> selectMembersBy(String projectId);
+
+  List<MemberDto> selectMemberAllBy();
+
+  Optional<ProjectDto> updateProjectBy (ProjectUpdateDto projectUpdateDto);
+
+  void deleteProjectBy (String projectId);
 
 
-
+  Optional<MemberDto> createMemberBy(MemberRegisterDto memberRegisterDto);
+  Optional<ProjectDto> addProjectMemberBy (ProjectMemberDto projectMemberDto);
+  void delProjectMemberBy (ProjectMemberDto projectMemberDto);
 
 //  void updateProjectBy(ProjectDto projectDto);
 //

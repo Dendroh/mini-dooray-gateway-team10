@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 public class TaskDto {
   private Integer taskId;
 
-  private String taskName;
+  private String taskTitle;
 
-  private String content;
+  private String taskContent;
 
   private LocalDateTime writeTime;
 

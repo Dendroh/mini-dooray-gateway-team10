@@ -4,6 +4,7 @@ import com.example.minidooraygateway.domain.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class RestTemplateProjectServiceImpl implements RestTemplateProjectService {
@@ -81,7 +83,23 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
   }
 
   @Override
-  public List<MemberDto> selectAllMemberBy(String projectId) {
+  public List<MemberDto> selectMemberAllBy() {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    ResponseEntity<List<MemberDto>> response = restTemplate.exchange("http://localhost:8082/members/",
+            HttpMethod.GET,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public List<MemberDto> selectMembersBy(String projectId) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
     ResponseEntity<List<MemberDto>> response = restTemplate.exchange("http://localhost:8082/projects/members/id/" + projectId,
@@ -96,4 +114,72 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
     }
   }
 
+  @Override
+  public Optional<ProjectDto> updateProjectBy(ProjectUpdateDto projectUpdateDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(projectUpdateDto);
+
+    ResponseEntity<ProjectDto> response = restTemplate.exchange("http://localhost:8082/projects/",
+            HttpMethod.PUT,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return Optional.ofNullable(response.getBody());
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public void deleteProjectBy(String projectId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    restTemplate.exchange("http://localhost:8082/projects/" + projectId,
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
+
+
+  @Override
+  public Optional<MemberDto> createMemberBy(MemberRegisterDto memberRegisterDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(memberRegisterDto);
+
+    ResponseEntity<MemberDto> response = restTemplate.exchange("http://localhost:8082/members/",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public Optional<ProjectDto> addProjectMemberBy(ProjectMemberDto projectMemberDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(projectMemberDto);
+
+    ResponseEntity<ProjectDto> response = restTemplate.exchange("http://localhost:8082/projects/members",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public void delProjectMemberBy(ProjectMemberDto projectMemberDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    restTemplate.exchange("http://localhost:8082/projects/members"
+                    + "/"
+                    + projectMemberDto.getProjectTitle()
+                    + "/"
+                    + projectMemberDto.getMemberEmail(),
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
 }

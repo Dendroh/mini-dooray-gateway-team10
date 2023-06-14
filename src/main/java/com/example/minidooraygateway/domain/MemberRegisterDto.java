@@ -7,14 +7,10 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class AccountDto {
+public class MemberRegisterDto {
 
-  private Integer accountId;
+  private String memberName;
 
-  private String email;
-
-  private String password;
-
-  private String name;
+  private String memberEmail;
 
 }

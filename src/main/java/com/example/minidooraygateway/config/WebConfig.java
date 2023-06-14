@@ -4,6 +4,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 import java.time.Duration;
 
@@ -15,5 +16,10 @@ public class WebConfig {
     return restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(3L))
                               .setReadTimeout(Duration.ofSeconds(3L))
                               .build();
+  }
+
+  @Bean
+  public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+    return new HiddenHttpMethodFilter();
   }
 }

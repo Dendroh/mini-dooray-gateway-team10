@@ -1,5 +1,7 @@
 package com.example.minidooraygateway.service;
 
+import com.example.minidooraygateway.domain.AccountDetailsDto;
+import com.example.minidooraygateway.domain.AccountDetailsPostDto;
 import com.example.minidooraygateway.domain.AccountDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,11 +60,11 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
     return Optional.ofNullable(response.getBody());
   }
 
+
   @Override
   public Optional<AccountDto> selectUserBy(String accountEmail) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
-    log.info(accountEmail);
 
     ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/email/"+accountEmail,
             HttpMethod.GET,
@@ -77,36 +79,33 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
   }
 
 
-
-
-
-
-
-
-
-
-  //PUT http://localhost:9090/accounts
-  //accountDto
   @Override
-  public void updateUserBy(AccountDto accountDto) {
+  public Optional<AccountDetailsDto> createUserDetailBy(AccountDetailsPostDto accountDetailsPostDto) {
 
-    HttpEntity<String> httpEntity = createHttpEntity(accountDto);
+    HttpEntity<String> httpEntity = createHttpEntity(accountDetailsPostDto);
 
-    restTemplate.exchange("http://localhost:9090/accounts/",
-            HttpMethod.PUT,
+    ResponseEntity<AccountDetailsDto> response = restTemplate.exchange("http://localhost:8081/accountDetails/",
+            HttpMethod.POST,
             httpEntity,
             new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
   }
 
-  //DELETE http://localhost:9090/accounts/accountId
   @Override
-  public void deleteUserBy(String accountId) {
+  public Optional<AccountDetailsDto> selectUserDetailBy(String accountEmail) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    restTemplate.exchange("http://localhost:9090/accounts/" + accountId,
-            HttpMethod.DELETE,
+    ResponseEntity<AccountDetailsDto> response = restTemplate.exchange("http://localhost:8081/accounts/email/"+accountEmail,
+            HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return Optional.ofNullable(response.getBody());
+    } else {
+      return Optional.empty();
+    }
   }
 }

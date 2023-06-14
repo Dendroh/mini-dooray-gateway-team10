@@ -7,14 +7,12 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class AccountDto {
+public class TaskUpdateDto {
 
-  private Integer accountId;
+  private Integer taskId;
 
-  private String email;
+  private String newTaskTitle;
 
-  private String password;
-
-  private String name;
+  private String newTaskContent;
 
 }

@@ -40,7 +40,7 @@ public class RestTemplateTaskServiceImpl implements RestTemplateTaskService {
 
     HttpEntity<String> httpEntity = createHttpEntity(taskRegisterDto);
 
-    ResponseEntity<TaskDto> response = restTemplate.exchange("http://localhost:8082/projects/",
+    ResponseEntity<TaskDto> response = restTemplate.exchange("http://localhost:8082/task/",
             HttpMethod.POST,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -49,10 +49,10 @@ public class RestTemplateTaskServiceImpl implements RestTemplateTaskService {
   }
 
   @Override
-  public List<ProjectTaskDto> selectAllTaskBy(String accountEmail) {
+  public List<TaskDto> selectAllTaskBy(String accountEmail) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    ResponseEntity<List<ProjectTaskDto>> response = restTemplate.exchange("http://localhost:8082/task/memberEmail/" + accountEmail,
+    ResponseEntity<List<TaskDto>> response = restTemplate.exchange("http://localhost:8082/task/memberEmail/" + accountEmail,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -65,10 +65,37 @@ public class RestTemplateTaskServiceImpl implements RestTemplateTaskService {
   }
 
   @Override
-  public ProjectTaskDto selectTaskBy(String taskId) {
+  public Optional<TaskDto> updateTaskBy(TaskUpdateDto taskUpdateDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(taskUpdateDto);
+
+    ResponseEntity<TaskDto> response = restTemplate.exchange("http://localhost:8082/task/",
+            HttpMethod.PUT,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return Optional.ofNullable(response.getBody());
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public void deleteTaskBy(String taskId) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    ResponseEntity<ProjectTaskDto> response = restTemplate.exchange("http://localhost:8082/task/id/" + taskId,
+    restTemplate.exchange("http://localhost:8082/task/" + taskId,
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
+
+  @Override
+  public TaskDto selectTaskBy(String taskId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    ResponseEntity<TaskDto> response = restTemplate.exchange("http://localhost:8082/task/id/" + taskId,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});

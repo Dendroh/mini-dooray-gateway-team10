@@ -7,10 +7,14 @@ import java.util.Optional;
 
 public interface RestTemplateTaskService {
 
-  List<ProjectTaskDto> selectAllTaskBy(String accountEmail);
+  List<TaskDto> selectAllTaskBy(String accountEmail);
 
   Optional<TaskDto> createTaskBy(TaskRegisterDto taskRegisterDto);
 
-  ProjectTaskDto selectTaskBy(String taskId);
+  TaskDto selectTaskBy(String taskId);
+
+  Optional<TaskDto> updateTaskBy(TaskUpdateDto taskUpdateDto);
+
+  void deleteTaskBy(String projectId);
 
 }

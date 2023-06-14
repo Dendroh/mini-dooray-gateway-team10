@@ -1,17 +1,18 @@
 package com.example.minidooraygateway.service;
 
+import com.example.minidooraygateway.domain.AccountDetailsDto;
+import com.example.minidooraygateway.domain.AccountDetailsPostDto;
 import com.example.minidooraygateway.domain.AccountDto;
 
 import java.util.Optional;
 
 public interface RestTemplateAccountService {
 
-  Optional<AccountDto> selectUserBy(String userId);
+  Optional<AccountDto> selectUserBy(String accountEmail);
 
   Optional<AccountDto> createUserBy(AccountDto accountDto);
 
-  void updateUserBy(AccountDto accountDto);
+  Optional<AccountDetailsDto> selectUserDetailBy(String accountEmail);
 
-  void deleteUserBy(String accountId);
-
+  Optional<AccountDetailsDto> createUserDetailBy(AccountDetailsPostDto accountDetailsPostDto);
 }
