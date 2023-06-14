@@ -38,9 +38,9 @@
 
     <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="item, i: ${mileStoneView}">
             <td>
-                <span>진행상황</span>
+                <span th:text = "${item.milestoneName}"></span>
             </td>
         </tr>
     </table>
@@ -48,9 +48,9 @@
 
     <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="item, i: ${tagView}">
             <td>
-                <span>태그, 태그, 태그, 태그, 태그, 태그</span>
+                <span th:text = "${item.tagName}"></span>
             </td>
         </tr>
     </table>

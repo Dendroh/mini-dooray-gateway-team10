@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Component
-public class MileStoneDto {
-  private Integer milestoneId;
+public class MileStoneRegisterDto {
 
   private String milestoneName;
 

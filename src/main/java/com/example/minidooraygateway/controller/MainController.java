@@ -1,7 +1,6 @@
 package com.example.minidooraygateway.controller;
 
 import com.example.minidooraygateway.domain.*;
-import com.example.minidooraygateway.service.RestTemplateAccountService;
 import com.example.minidooraygateway.service.RestTemplateProjectService;
 import com.example.minidooraygateway.service.RestTemplateTaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +75,8 @@ public class MainController {
     model.addAttribute("memberView", restTemplateProjectService.selectMembersBy(projectId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     model.addAttribute("taskList", restTemplateTaskService.selectAllTaskBy(principal.getName()));
+    model.addAttribute("mileStoneView", restTemplateProjectService.selectMileStonesBy(projectId));
+    model.addAttribute("tagView", restTemplateProjectService.selectTagsBy(projectId));
     return "viewProject";
   }
 
@@ -117,6 +118,8 @@ public class MainController {
     model.addAttribute("memberView", restTemplateProjectService.selectMembersBy(projectId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     model.addAttribute("taskList", restTemplateTaskService.selectAllTaskBy(principal.getName()));
+    model.addAttribute("mileStoneView", restTemplateProjectService.selectMileStonesBy(projectId));
+    model.addAttribute("tagView", restTemplateProjectService.selectTagsBy(projectId));
     return "editProject";
   }
 
@@ -179,6 +182,38 @@ public class MainController {
     log.info(projectMemberDto.getMemberEmail());
     log.info(projectMemberDto.getProjectTitle());
     restTemplateProjectService.delProjectMemberBy(projectMemberDto);
+    return "redirect:/api";
+  }
+
+  @PostMapping("/api/milestone")
+  public String projectMileStonePosting(Model model, Principal principal, @RequestParam("mileStoneName") String mileStoneName, @RequestParam("projectId") Integer projectId) {
+    MileStoneRegisterDto mileStoneRegisterDto = new MileStoneRegisterDto();
+    mileStoneRegisterDto.setMilestoneName(mileStoneName);
+    mileStoneRegisterDto.setProjectId(projectId);
+    restTemplateProjectService.addProjectMileStoneBy(mileStoneRegisterDto);
+    return "redirect:/api";
+  }
+
+  @DeleteMapping("/api/milestone")
+  public String projectMileStoneDeleting(Model model, Principal principal, @RequestParam("mileStoneId") String mileStoneId) {
+    restTemplateProjectService.delProjectMileStoneBy(mileStoneId);
+    return "redirect:/api";
+  }
+
+
+  @PostMapping("/api/tag")
+  public String projectTagPosting(Model model, Principal principal, @RequestParam("tagName") String tagName, @RequestParam("projectId") Integer projectId) {
+    TagRegisterDto tagRegisterDto = new TagRegisterDto();
+    tagRegisterDto.setTagName(tagName);
+    tagRegisterDto.setTagColor("#000000");
+    tagRegisterDto.setProjectId(projectId);
+    restTemplateProjectService.addProjectTagBy(tagRegisterDto);
+    return "redirect:/api";
+  }
+
+  @DeleteMapping("/api/tag")
+  public String projectTagDeleting(Model model, Principal principal, @RequestParam("tagId") String tagId) {
+    restTemplateProjectService.delProjectTagBy(tagId);
     return "redirect:/api";
   }
 }

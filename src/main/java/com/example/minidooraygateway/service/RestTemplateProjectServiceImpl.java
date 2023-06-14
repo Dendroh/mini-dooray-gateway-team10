@@ -52,6 +52,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
 
   @Override
   public List<ProjectDto> selectAllProjectBy(String accountEmail) {
+
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
     ResponseEntity<List<ProjectDto>> response = restTemplate.exchange("http://localhost:8082/projects/account/email/" + accountEmail,
@@ -68,6 +69,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
 
   @Override
   public ProjectDto selectProjectBy(String projectId) {
+
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
     ResponseEntity<ProjectDto> response = restTemplate.exchange("http://localhost:8082/projects/id/" + projectId,
@@ -178,6 +180,84 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
                     + projectMemberDto.getProjectTitle()
                     + "/"
                     + projectMemberDto.getMemberEmail(),
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
+
+
+  @Override
+  public Optional<MileStoneDto> addProjectMileStoneBy(MileStoneRegisterDto mileStoneRegisterDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(mileStoneRegisterDto);
+
+    ResponseEntity<MileStoneDto> response = restTemplate.exchange("http://localhost:8082/milestones/",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public List<MileStoneDto> selectMileStonesBy(String projectId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    ResponseEntity<List<MileStoneDto>> response = restTemplate.exchange("http://localhost:8082/milestones/project/" + projectId,
+            HttpMethod.GET,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public void delProjectMileStoneBy(String milestoneId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+    restTemplate.exchange("http://localhost:8082/milestones/" + milestoneId,
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
+
+
+  @Override
+  public Optional<TagDto> addProjectTagBy(TagRegisterDto tagRegisterDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(tagRegisterDto);
+
+    ResponseEntity<TagDto> response = restTemplate.exchange("http://localhost:8082/tags/",
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public List<TagDto> selectTagsBy(String projectId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    ResponseEntity<List<TagDto>> response = restTemplate.exchange("http://localhost:8082/tags/" + projectId,
+            HttpMethod.GET,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    if(response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public void delProjectTagBy(String tagId) {
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+    restTemplate.exchange("http://localhost:8082/tags/" + tagId,
             HttpMethod.DELETE,
             httpEntity,
             new ParameterizedTypeReference<>() {});

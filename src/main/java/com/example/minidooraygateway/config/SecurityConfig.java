@@ -96,7 +96,6 @@ public class SecurityConfig{
     return new InMemoryClientRegistrationRepository(github());
   }
 
-
   @Bean
   public OAuth2AuthorizedClientService authorizedClientService() {
     return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());

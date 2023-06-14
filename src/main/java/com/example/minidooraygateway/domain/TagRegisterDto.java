@@ -9,14 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Component
-public class MileStoneDto {
-  private Integer milestoneId;
+public class TagRegisterDto {
 
-  private String milestoneName;
+  private String tagName;
 
-  private LocalDateTime startDatetime;
-
-  private LocalDateTime endDatetime;
+  private String tagColor;
 
   private Integer projectId;
 }

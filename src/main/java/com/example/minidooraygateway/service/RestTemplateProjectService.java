@@ -26,6 +26,23 @@ public interface RestTemplateProjectService {
   Optional<ProjectDto> addProjectMemberBy (ProjectMemberDto projectMemberDto);
   void delProjectMemberBy (ProjectMemberDto projectMemberDto);
 
+
+  Optional<MileStoneDto> addProjectMileStoneBy(MileStoneRegisterDto mileStoneRegisterDto);
+
+  List<MileStoneDto> selectMileStonesBy(String projectId);
+  void delProjectMileStoneBy(String milestoneId);
+
+
+
+  Optional<TagDto> addProjectTagBy(TagRegisterDto tagRegisterDto);
+
+  List<TagDto> selectTagsBy(String projectId);
+  void delProjectTagBy(String milestoneId);
+
+
+
+
+
 //  void updateProjectBy(ProjectDto projectDto);
 //
 //
@@ -40,7 +57,7 @@ public interface RestTemplateProjectService {
 //
 //  List<MileStoneDto> selectAllMileStoneBy(String projectId);
 //
-//  void createMileStoneBy(MileStoneDto mileStoneDto);
+//  void createMileStoneBy(MileStoneDto tagDto);
 //
 //  void updateMileStoneBy(MileStoneDto mileStoneDto);
 //
