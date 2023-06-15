@@ -30,12 +30,6 @@ public class MainController {
     return "redirect:/api";
   }
 
-  @GetMapping("/userInfoPage")
-  public String userInfoPageMapping(Model model) {
-    model.addAttribute("statusMessage", "회원정보 변경 페이지입니다.");
-    return "userInfoPage";
-  }
-
   @GetMapping("/api/**")
   public String webPageMapping(Model model, Principal principal) {
     model.addAttribute("statusMessage", "로그인에 성공했습니다.");

@@ -157,6 +157,33 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
     return Optional.ofNullable(response.getBody());
   }
 
+
+  @Override
+  public Optional<MemberDto> updateMemberBy(MemberUpdateDto memberUpdateDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(memberUpdateDto);
+
+    ResponseEntity<MemberDto> response = restTemplate.exchange("http://localhost:8082/members/email/",
+            HttpMethod.PUT,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public Optional<MemberDto> updateMemberDetailsBy(MemberDetailsUpdateDto memberDetailsUpdateDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(memberDetailsUpdateDto);
+
+    ResponseEntity<MemberDto> response = restTemplate.exchange("http://localhost:8082/members/name/",
+            HttpMethod.PUT,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
   @Override
   public Optional<ProjectDto> addProjectMemberBy(ProjectMemberDto projectMemberDto) {
 

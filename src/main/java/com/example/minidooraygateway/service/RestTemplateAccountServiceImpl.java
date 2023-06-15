@@ -1,8 +1,6 @@
 package com.example.minidooraygateway.service;
 
-import com.example.minidooraygateway.domain.AccountDetailsDto;
-import com.example.minidooraygateway.domain.AccountDetailsPostDto;
-import com.example.minidooraygateway.domain.AccountDto;
+import com.example.minidooraygateway.domain.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +21,6 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
 
   private final RestTemplate restTemplate;
 
-  private final PasswordEncoder passwordEncoder;
-
   private HttpHeaders createHeaders() {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
@@ -43,16 +39,11 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
   }
 
   @Override
-  public Optional<AccountDto> createUserBy(AccountDto accountDto) {
+  public Optional<AccountGetDto> createUserBy(AccountDto accountDto) {
 
-    AccountDto temp = new AccountDto();
-    temp.setAccountId(0);
-    temp.setEmail(accountDto.getEmail());
-    temp.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+    HttpEntity<String> httpEntity = createHttpEntity(accountDto);
 
-    HttpEntity<String> httpEntity = createHttpEntity(temp);
-
-    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
+    ResponseEntity<AccountGetDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
             HttpMethod.POST,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -62,11 +53,11 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
 
 
   @Override
-  public Optional<AccountDto> selectUserBy(String accountEmail) {
+  public Optional<AccountGetDto> selectUserBy(String accountEmail) {
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    ResponseEntity<AccountDto> response = restTemplate.exchange("http://localhost:8081/accounts/email/"+accountEmail,
+    ResponseEntity<AccountGetDto> response = restTemplate.exchange("http://localhost:8081/accounts/email/"+accountEmail,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -77,7 +68,6 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
       return Optional.empty();
     }
   }
-
 
   @Override
   public Optional<AccountDetailsDto> createUserDetailBy(AccountDetailsPostDto accountDetailsPostDto) {
@@ -97,7 +87,7 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
 
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
-    ResponseEntity<AccountDetailsDto> response = restTemplate.exchange("http://localhost:8081/accounts/email/"+accountEmail,
+    ResponseEntity<AccountDetailsDto> response = restTemplate.exchange("http://localhost:8081/accountDetails/email/"+accountEmail,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -107,5 +97,31 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
     } else {
       return Optional.empty();
     }
+  }
+
+  @Override
+  public Optional<AccountUpdateDto> updateUserBy(AccountUpdateDto accountUpdateDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(accountUpdateDto);
+
+    ResponseEntity<AccountUpdateDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
+            HttpMethod.PUT,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
+  }
+
+  @Override
+  public Optional<AccountDetailsUpdateDto> updateUserDetailsBy(AccountDetailsUpdateDto accountDetailsUpdateDto) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(accountDetailsUpdateDto);
+
+    ResponseEntity<AccountDetailsUpdateDto> response = restTemplate.exchange("http://localhost:8081/accountDetails/",
+            HttpMethod.PUT,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+
+    return Optional.ofNullable(response.getBody());
   }
 }

@@ -23,6 +23,8 @@ public interface RestTemplateProjectService {
 
 
   Optional<MemberDto> createMemberBy(MemberRegisterDto memberRegisterDto);
+  Optional<MemberDto> updateMemberBy(MemberUpdateDto memberUpdateDto);
+  Optional<MemberDto> updateMemberDetailsBy(MemberDetailsUpdateDto memberDetailsUpdateDto);
   Optional<ProjectDto> addProjectMemberBy (ProjectMemberDto projectMemberDto);
   void delProjectMemberBy (ProjectMemberDto projectMemberDto);
 

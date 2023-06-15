@@ -1,6 +1,7 @@
 package com.example.minidooraygateway.service;
 
 import com.example.minidooraygateway.domain.AccountDto;
+import com.example.minidooraygateway.domain.AccountGetDto;
 import com.example.minidooraygateway.domain.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-    AccountDto accountDto = restTemplateService.selectUserBy(userEmail)
+    AccountGetDto accountDto = restTemplateService.selectUserBy(userEmail)
             .orElseThrow(() -> new UsernameNotFoundException(userEmail + " not found"));
 
     return new CustomUserDetails(accountDto.getEmail(), accountDto.getPassword(),
