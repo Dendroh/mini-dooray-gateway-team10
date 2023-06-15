@@ -1,6 +1,5 @@
 package com.example.minidooraygateway.service;
 
-import com.example.minidooraygateway.domain.AccountDto;
 import com.example.minidooraygateway.domain.AccountGetDto;
 import com.example.minidooraygateway.domain.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,5 +26,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
     return new CustomUserDetails(accountDto.getEmail(), accountDto.getPassword(),
             Collections.singletonList(new SimpleGrantedAuthority("ROLE_CUSTOM")));
+
+
   }
+
+
 }
