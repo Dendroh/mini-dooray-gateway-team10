@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="contentinfo">
     <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
@@ -19,18 +19,18 @@
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록 진행도</p>
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="item, i: ${mileStoneView}">
             <td>
-                <span>진행상황</span>
+                <span th:text="${item.milestoneName}"></span>
             </td>
         </tr>
     </table>
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록 태그</p>
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="item, i: ${tagView}">
             <td>
-                <span>태그, 태그, 태그, 태그, 태그, 태그</span>
+                <span th:text="${item.tagName}"></span>
             </td>
         </tr>
     </table>
@@ -40,11 +40,33 @@
               readonly="readonly"></textarea>
     <hr>
     <p style="font-size: 12px; color: dimgray;">코멘트</p>
-    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
-        <textarea style="height: 40px; width: 700px; resize: none;"></textarea><br>
+    <form th:method="post" th:action="@{/api/task/comments}" th:object="${commentCommitDto}">
+        <textarea style="height: 40px; width: 700px; resize: none;" name="content"></textarea><br>
+        <input name="taskId" th:value="${taskView.taskId}" style="display: none">
         <input type="submit" th:value="'코멘트 남기기'"/>
     </form>
-    <th:block th:insert="~{commentsec}"></th:block>
+
+    <table>
+        <tr th:each="item, i: ${commentView}">
+            <td>
+                <div style="display: flex; flex-direction: row; align-items: end; justify-content: space-between; width: 800px; border: black solid 1px; padding: 5px">
+                    <form th:method="put" th:action="@{/api/task/comments}" th:object="${commentUpdateDto}">
+                    <textarea style="width: 400px; resize: none" th:text="${item.content}"
+                              name="content"></textarea>
+                        <span style="display: inline-block; width: 200px;"
+                              th:text="${item.writerName} + ' / ' + ${item.writerEmail}"></span>
+                        <span style="display: inline-block; width: 600px;" th:text="${item.writeTime}"></span>
+                        <input th:value="${item.commentId}" style="display: none" name="commentId"/>
+                        <input type="submit" th:value="'코멘트 수정'"/>
+                    </form>
+                    <form th:method="delete" th:action="@{/api/task/comments}">
+                        <input th:value="${item.commentId}" style="display: none" name="commentId"/>
+                        <input type="submit" th:value="'코멘트 삭제'"/>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
     <hr>
 </div>
 

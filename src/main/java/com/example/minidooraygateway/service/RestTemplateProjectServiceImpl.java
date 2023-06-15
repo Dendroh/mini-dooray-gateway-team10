@@ -187,7 +187,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
 
 
   @Override
-  public Optional<MileStoneDto> addProjectMileStoneBy(MileStoneRegisterDto mileStoneRegisterDto) {
+  public Optional<MileStoneDto> addProjectMileStonesBy(MileStoneRegisterDto mileStoneRegisterDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(mileStoneRegisterDto);
 
@@ -200,7 +200,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
   }
 
   @Override
-  public List<MileStoneDto> selectMileStonesBy(String projectId) {
+  public List<MileStoneDto> selectProjectMileStonesBy(String projectId) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
     ResponseEntity<List<MileStoneDto>> response = restTemplate.exchange("http://localhost:8082/milestones/project/" + projectId,
@@ -216,7 +216,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
   }
 
   @Override
-  public void delProjectMileStoneBy(String milestoneId) {
+  public void delProjectMileStonesBy(String milestoneId) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
     restTemplate.exchange("http://localhost:8082/milestones/" + milestoneId,
             HttpMethod.DELETE,
@@ -226,7 +226,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
 
 
   @Override
-  public Optional<TagDto> addProjectTagBy(TagRegisterDto tagRegisterDto) {
+  public Optional<TagDto> addProjectTagsBy(TagRegisterDto tagRegisterDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(tagRegisterDto);
 
@@ -239,7 +239,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
   }
 
   @Override
-  public List<TagDto> selectTagsBy(String projectId) {
+  public List<TagDto> selectProjectTagsBy(String projectId) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
 
     ResponseEntity<List<TagDto>> response = restTemplate.exchange("http://localhost:8082/tags/" + projectId,
@@ -255,7 +255,7 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
   }
 
   @Override
-  public void delProjectTagBy(String tagId) {
+  public void delProjectTagsBy(String tagId) {
     HttpEntity<String> httpEntity = createHttpEntity(null);
     restTemplate.exchange("http://localhost:8082/tags/" + tagId,
             HttpMethod.DELETE,

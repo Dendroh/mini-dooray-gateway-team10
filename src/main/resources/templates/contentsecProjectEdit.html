@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="contentinfo">
     <form th:method="put" th:action="@{/api/projectEdit}" th:object="${projectUpdateDto}">
@@ -57,7 +57,7 @@
 
     <form th:method="delete" th:action="@{/api/member}" th:object="${projectMemberDto}">
         <select name="memberEmail">
-            <option th:each="item, i: ${memberAllView}" th:value="${item.memberEmail}" th:text="${item.memberName} + ' / ' + ${item.memberEmail}">
+            <option th:each="item, i: ${memberView}" th:value="${item.memberEmail}" th:text="${item.memberName} + ' / ' + ${item.memberEmail}">
             </option>
         </select>
         <input style="display: none" th:value="${projectView.projectTitle}" name="projectTitle"/>

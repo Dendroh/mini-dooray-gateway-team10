@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="contentinfo">
     <form th:method="post" th:action="@{/api/taskRegister}" th:object="${taskRegisterDto}">
-        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none;
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; display: none;
         margin-top: 0.5em; margin-bottom: 0.5em;" type="text" name="projectId"
                th:value="${projectId}" readonly="readonly"/></br>
         <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>

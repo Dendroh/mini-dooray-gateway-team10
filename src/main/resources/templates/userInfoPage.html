@@ -9,7 +9,7 @@
 <body>
 <th:block th:insert="~{loginInfo :: userinfo}"></th:block>
     <div sec:authorize="isAuthenticated()"
-         style="border: black solid 1px; width: 1350px; padding: 10px;
+         style="border: black solid 1px; width: 1350px; padding: 10px; min-height: 1050px; height: auto;
          display: flex; align-items: stretch; margin-top: 10px; flex-direction: row;">
         <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
 

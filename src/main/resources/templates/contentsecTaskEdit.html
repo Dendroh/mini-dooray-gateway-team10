@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="contentinfo">
     <form th:method="put" th:action="@{/api/taskEdit}" th:object="${taskUpdateDto}">
@@ -30,49 +30,62 @@
     </form>
     <p style="font-size: 12px; color: dimgray;">테스크 등록 진행도</p>
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="item, i: ${mileStoneView}">
             <td>
-                <span>진행상황</span>
+                <span th:text = "${item.milestoneName}"></span>
             </td>
         </tr>
     </table>
-    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
-        <select name="milestone">
-            <option value="apple">Apple</option>
+
+    <form th:method="post" th:action="@{/api/task/milestone}" th:object="${taskMileStonePostDto}">
+        <select name="milestoneName">
+            <option th:each="item, i: ${mileStoneList}" th:value="${item.milestoneName}" th:text="${item.milestoneName}">
+            </option>
         </select>
-        <input type="submit" th:value="'진행상황 저장'"/>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
+        <input type="submit" th:value="'새로운 진행상황 등록'"/>
     </form>
-    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
-        <select name="milestone">
-            <option value="apple">Apple</option>
+
+    <form th:method="delete" th:action="@{/api/task/milestone}">
+        <select name="mileStoneName">
+            <option th:each="item, i: ${mileStoneView}" th:value="${item.milestoneName}" th:text="${item.milestoneName}">
+            </option>
         </select>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
         <input type="submit" th:value="'진행상황 삭제'"/>
     </form>
     <hr>
     <p style="font-size: 12px; color: dimgray;">테스크 등록 태그</p>
     <table>
-        <tr th:each="item, i: ${projectList}">
+        <tr th:each="item, i: ${tagView}" th:object="${taskTagPostDto}">
             <td>
-                <span>태그, 태그, 태그, 태그, 태그, 태그</span>
+                <span th:text = "${item.tagName}" th:style="'color: ' + ${item.tagColor} + ';' "></span>
             </td>
         </tr>
     </table>
-    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
-        <select name="tags">
-            <option value="apple">Apple</option>
+
+    <form th:method="post" th:action="@{/api/task/tag}" th:object="${taskTagPostDto}">
+        <select name="tagName">
+            <option th:each="item, i: ${tagList}" th:value="${item.tagName}" th:text="${item.tagName}">
+            </option>
         </select>
-        <input type="submit" th:value="'태그 달기'"/>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
+        <input type="submit" th:value="'새로운 태그 등록'"/>
     </form>
-    <form th:method="post" th:action="@{/register}" th:object="${RegisterRequest}">
-        <select name="milestone">
-            <option value="apple">Apple</option>
+
+    <form th:method="delete" th:action="@{/api/task/tag}">
+        <select name="tagName">
+            <option th:each="item, i: ${tagView}" th:value="${item.tagName}" th:text="${item.tagName}">
+            </option>
         </select>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
         <input type="submit" th:value="'태그 삭제'"/>
     </form>
     <hr>
+
     <form th:method="delete" th:action="@{/api/taskEdit(taskId=${taskView.taskId})}">
-        <p style="font-size: 12px; color: dimgray;">테스크 삭제하기</p>
-        <input type="submit" th:value="'삭제하기<위험>'" style=" color: red"/>
+        <p style="font-size: 12px; color: dimgray;">프로젝트 삭제하기</p>
+        <input type="submit" th:value="'삭제하기<위험>'" style="color: red"/>
     </form>
 </div>
 

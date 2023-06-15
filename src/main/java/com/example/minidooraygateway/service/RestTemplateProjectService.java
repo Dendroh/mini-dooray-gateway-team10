@@ -27,17 +27,17 @@ public interface RestTemplateProjectService {
   void delProjectMemberBy (ProjectMemberDto projectMemberDto);
 
 
-  Optional<MileStoneDto> addProjectMileStoneBy(MileStoneRegisterDto mileStoneRegisterDto);
+  Optional<MileStoneDto> addProjectMileStonesBy(MileStoneRegisterDto mileStoneRegisterDto);
 
-  List<MileStoneDto> selectMileStonesBy(String projectId);
-  void delProjectMileStoneBy(String milestoneId);
+  List<MileStoneDto> selectProjectMileStonesBy(String projectId);
+  void delProjectMileStonesBy(String milestoneId);
 
 
 
-  Optional<TagDto> addProjectTagBy(TagRegisterDto tagRegisterDto);
+  Optional<TagDto> addProjectTagsBy(TagRegisterDto tagRegisterDto);
 
-  List<TagDto> selectTagsBy(String projectId);
-  void delProjectTagBy(String milestoneId);
+  List<TagDto> selectProjectTagsBy(String projectId);
+  void delProjectTagsBy(String milestoneId);
 
 
 

@@ -75,8 +75,8 @@ public class MainController {
     model.addAttribute("memberView", restTemplateProjectService.selectMembersBy(projectId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     model.addAttribute("taskList", restTemplateTaskService.selectAllTaskBy(principal.getName()));
-    model.addAttribute("mileStoneView", restTemplateProjectService.selectMileStonesBy(projectId));
-    model.addAttribute("tagView", restTemplateProjectService.selectTagsBy(projectId));
+    model.addAttribute("mileStoneView", restTemplateProjectService.selectProjectMileStonesBy(projectId));
+    model.addAttribute("tagView", restTemplateProjectService.selectProjectTagsBy(projectId));
     return "viewProject";
   }
 
@@ -102,11 +102,14 @@ public class MainController {
   }
 
   @GetMapping("/api/taskView")
-  public String taskViewMapping(Model model, Principal principal, @RequestParam("taskId") String taskId) {
+  public String taskViewMapping(Model model, Principal principal, @RequestParam("taskId") String taskId, @RequestParam("taskName") String taskName) {
     model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 테스크입니다.");
     model.addAttribute("taskView", restTemplateTaskService.selectTaskBy(taskId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     model.addAttribute("taskList", restTemplateTaskService.selectAllTaskBy(principal.getName()));
+    model.addAttribute("mileStoneView", restTemplateTaskService.selectTaskMileStonesBy(taskName));
+    model.addAttribute("tagView", restTemplateTaskService.selectTaskTagsBy(taskName));
+    model.addAttribute("commentView", restTemplateTaskService.selectTaskCommentsBy(taskId));
     return "viewTask";
   }
 
@@ -118,8 +121,8 @@ public class MainController {
     model.addAttribute("memberView", restTemplateProjectService.selectMembersBy(projectId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     model.addAttribute("taskList", restTemplateTaskService.selectAllTaskBy(principal.getName()));
-    model.addAttribute("mileStoneView", restTemplateProjectService.selectMileStonesBy(projectId));
-    model.addAttribute("tagView", restTemplateProjectService.selectTagsBy(projectId));
+    model.addAttribute("mileStoneView", restTemplateProjectService.selectProjectMileStonesBy(projectId));
+    model.addAttribute("tagView", restTemplateProjectService.selectProjectTagsBy(projectId));
     return "editProject";
   }
 
@@ -141,11 +144,15 @@ public class MainController {
   }
 
   @GetMapping("/api/taskEdit")
-  public String taskEditMapping(Model model, Principal principal, @RequestParam("taskId") String taskId) {
+  public String taskEditMapping(Model model, Principal principal, @RequestParam("taskId") String taskId, @RequestParam("taskName") String taskName, @RequestParam("projectId") String projectId) {
     model.addAttribute("statusMessage", "Dooray 프로젝트에 등록된 테스크를 수정합니다.");
     model.addAttribute("taskView", restTemplateTaskService.selectTaskBy(taskId));
     model.addAttribute("projectList", restTemplateProjectService.selectAllProjectBy(principal.getName()));
     model.addAttribute("taskList", restTemplateTaskService.selectAllTaskBy(principal.getName()));
+    model.addAttribute("mileStoneList", restTemplateProjectService.selectProjectMileStonesBy(projectId));
+    model.addAttribute("tagList", restTemplateProjectService.selectProjectTagsBy(projectId));
+    model.addAttribute("mileStoneView", restTemplateTaskService.selectTaskMileStonesBy(taskName));
+    model.addAttribute("tagView", restTemplateTaskService.selectTaskTagsBy(taskName));
     return "editTask";
   }
 
@@ -170,8 +177,6 @@ public class MainController {
   @PostMapping("/api/member")
   public String projectMemberPosting(Model model, Principal principal, @ModelAttribute("projectMemberDto") ProjectMemberDto projectMemberDto,
                                      BindingResult bindingResult) {
-    log.info(projectMemberDto.getMemberEmail());
-    log.info(projectMemberDto.getProjectTitle());
     restTemplateProjectService.addProjectMemberBy(projectMemberDto);
     return "redirect:/api";
   }
@@ -179,8 +184,6 @@ public class MainController {
   @DeleteMapping("/api/member")
   public String projectMemberDeleting(Model model, Principal principal, @ModelAttribute("projectMemberDto") ProjectMemberDto projectMemberDto,
                                      BindingResult bindingResult) {
-    log.info(projectMemberDto.getMemberEmail());
-    log.info(projectMemberDto.getProjectTitle());
     restTemplateProjectService.delProjectMemberBy(projectMemberDto);
     return "redirect:/api";
   }
@@ -190,13 +193,13 @@ public class MainController {
     MileStoneRegisterDto mileStoneRegisterDto = new MileStoneRegisterDto();
     mileStoneRegisterDto.setMilestoneName(mileStoneName);
     mileStoneRegisterDto.setProjectId(projectId);
-    restTemplateProjectService.addProjectMileStoneBy(mileStoneRegisterDto);
+    restTemplateProjectService.addProjectMileStonesBy(mileStoneRegisterDto);
     return "redirect:/api";
   }
 
   @DeleteMapping("/api/milestone")
   public String projectMileStoneDeleting(Model model, Principal principal, @RequestParam("mileStoneId") String mileStoneId) {
-    restTemplateProjectService.delProjectMileStoneBy(mileStoneId);
+    restTemplateProjectService.delProjectMileStonesBy(mileStoneId);
     return "redirect:/api";
   }
 
@@ -207,13 +210,64 @@ public class MainController {
     tagRegisterDto.setTagName(tagName);
     tagRegisterDto.setTagColor("#000000");
     tagRegisterDto.setProjectId(projectId);
-    restTemplateProjectService.addProjectTagBy(tagRegisterDto);
+    restTemplateProjectService.addProjectTagsBy(tagRegisterDto);
     return "redirect:/api";
   }
 
   @DeleteMapping("/api/tag")
   public String projectTagDeleting(Model model, Principal principal, @RequestParam("tagId") String tagId) {
-    restTemplateProjectService.delProjectTagBy(tagId);
+    restTemplateProjectService.delProjectTagsBy(tagId);
+    return "redirect:/api";
+  }
+
+  @PostMapping("/api/task/milestone")
+  public String taskMileStonePosting(Model model, Principal principal, @ModelAttribute("taskMileStonePostDto") TaskMileStonePostDto taskMileStonePostDto,
+                                     BindingResult bindingResult) {
+    restTemplateTaskService.addTaskMileStonesBy(taskMileStonePostDto);
+    return "redirect:/api";
+  }
+
+  @DeleteMapping("/api/task/milestone")
+  public String taskMileStoneDeleting(Model model, Principal principal, @RequestParam("mileStoneName") String mileStoneName, @RequestParam("taskName") String taskName) {
+    restTemplateTaskService.delTaskMileStonesBy(taskName, mileStoneName);
+    return "redirect:/api";
+  }
+
+  @PostMapping("/api/task/tag")
+  public String taskTagPosting(Model model, Principal principal, @ModelAttribute("taskTagPostDto") TaskTagPostDto taskTagPostDto,
+                               BindingResult bindingResult) {
+    restTemplateTaskService.addTaskTagsBy(taskTagPostDto);
+    return "redirect:/api";
+  }
+
+  @DeleteMapping("/api/task/tag")
+  public String taskTagDeleting(Model model, Principal principal, @RequestParam("tagName") String tagName, @RequestParam("taskName") String taskName) {
+    restTemplateTaskService.delTaskTagsBy(taskName, tagName);
+    return "redirect:/api";
+  }
+
+  @PostMapping("/api/task/comments")
+  public String taskCommentPosting(Model model, Principal principal, @ModelAttribute("commentCommitDto") CommentCommitDto commentCommitDto,
+                               BindingResult bindingResult) {
+    CommentRegisterDto commentRegisterDto = new CommentRegisterDto();
+    commentRegisterDto.setContent(commentCommitDto.getContent());
+    commentRegisterDto.setTaskId(commentCommitDto.getTaskId());
+    commentRegisterDto.setWriterEmail(principal.getName());
+    restTemplateTaskService.addTaskCommentsBy(commentRegisterDto);
+    return "redirect:/api";
+  }
+
+  @PutMapping("/api/task/comments")
+  public String taskCommentPutting(Model model, Principal principal, @ModelAttribute("commentUpdateDto") CommentUpdateDto commentUpdateDto,
+                                   BindingResult bindingResult) {
+    restTemplateTaskService.updateTaskCommentBy(commentUpdateDto);
+    return "redirect:/api";
+  }
+
+
+  @DeleteMapping("/api/task/comments")
+  public String taskCommentDeleting(Model model, Principal principal, @RequestParam("commentId") String commentId) {
+    restTemplateTaskService.delTaskCommentsBy(commentId);
     return "redirect:/api";
   }
 }
