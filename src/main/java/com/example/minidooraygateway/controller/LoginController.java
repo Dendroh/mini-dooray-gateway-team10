@@ -9,9 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -92,7 +90,7 @@ public class LoginController {
   @PostMapping("/register/update")
   public String updateAccount(Model model, Principal principal, @ModelAttribute("AccountUpdateDto") AccountUpdateDto accountUpdateDto,
                               BindingResult bindingResult) {
-    model.addAttribute("statusMessage", "서비스 이용을 위해 로그인 해주세요.");
+    model.addAttribute("statusMessage", "유저 정보가 변경되었습니다.");
     AccountUpdateDto tempAccountUpdateDto = new AccountUpdateDto();
     tempAccountUpdateDto.setBeforeEmail(accountUpdateDto.getBeforeEmail());
     tempAccountUpdateDto.setAfterEmail(accountUpdateDto.getAfterEmail());
@@ -106,7 +104,7 @@ public class LoginController {
     restTemplateProjectService.updateMemberBy(tempMemberUpdateDto);
 
     if (principal != null) {
-      return "redirect:/api";
+      return "redirect:/logout";
     }
     return "loginPage";
   }
@@ -114,7 +112,7 @@ public class LoginController {
   @PostMapping("/register/updateDetails")
   public String updateAccountDetail(Model model, Principal principal, @ModelAttribute("AccountDetailsUpdateDto") AccountDetailsUpdateDto accountDetailsUpdateDto,
                                     BindingResult bindingResult) {
-    model.addAttribute("statusMessage", "서비스 이용을 위해 로그인 해주세요.");
+    model.addAttribute("statusMessage", "유저 정보가 변경되었습니다.");
     restTemplateAccountService.updateUserDetailsBy(accountDetailsUpdateDto);
 
     MemberDetailsUpdateDto memberDetailsUpdateDto = new MemberDetailsUpdateDto();
@@ -123,7 +121,18 @@ public class LoginController {
 
     restTemplateProjectService.updateMemberDetailsBy(memberDetailsUpdateDto);
     if (principal != null) {
-      return "redirect:/api";
+      return "redirect:/userInfoPage";
+    }
+    return "loginPage";
+  }
+
+  @DeleteMapping("/api/accountDelete")
+  public String projectEditDeleting(Model model, Principal principal) {
+    restTemplateProjectService.deleteMemberBy(principal.getName());
+    restTemplateAccountService.deleteUserBy(principal.getName());
+
+    if (principal != null) {
+      return "redirect:/logout";
     }
     return "loginPage";
   }

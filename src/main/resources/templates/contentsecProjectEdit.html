@@ -15,7 +15,29 @@
         <hr>
         <p style="font-size: 12px; color: dimgray;">프로젝트 상태</p>
         <input style="width: 900px; font-size: 20px; font-weight: bold;border: none;"
-               type="text" name="newStatusName" th:value="'Active'"/></br>
+               type="text" th:value="${projectView.codeName}"/></br>
+        <select name="newStatusName" >
+            <option th:value="'Active'" th:text="'Active'">
+            </option>
+            <option th:value="'Inactive'" th:text="'Inactive'">
+            </option>
+            <option th:value="'On-hold'" th:text="'On-hold'">
+            </option>
+            <option th:value="'Complete'" th:text="'Complete'">
+            </option>
+            <option th:value="'Cancelled'" th:text="'Cancelled'">
+            </option>
+            <option th:value="'Postponed'" th:text="'Postponed'">
+            </option>
+            <option th:value="'Running'" th:text="'Running'">
+            </option>
+            <option th:value="'Initiated'" th:text="'Initiated'">
+            </option>
+            <option th:value="'Pending'" th:text="'Pending'">
+            </option>
+            <option th:value="'Planned'" th:text="'Planned'">
+            </option>
+        </select>
         <hr>
     </form>
     <p style="font-size: 12px; color: dimgray;">프로젝트 관리자</p>
@@ -66,7 +88,7 @@
     <hr>
 
 
-    <p style="font-size: 12px; color: dimgray;">프로젝트 진행도</p>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 등록 진행도</p>
     <table>
         <tr th:each="item, i: ${mileStoneView}">
             <td>
@@ -89,8 +111,6 @@
         <input type="submit" th:value="'진행상황 삭제'"/>
     </form>
     <hr>
-
-
 
     <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
     <table>

@@ -3,61 +3,74 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
-    <title>Login</title>
+    <title>Mini Dooray!</title>
 </head>
 
 <body>
 <th:block th:insert="~{loginInfo :: userinfo}"></th:block>
-    <div sec:authorize="isAuthenticated()"
-         style="border: black solid 1px; width: 1350px; padding: 10px;
-         display: flex; align-items: stretch; margin-top: 10px; flex-direction: row;" th:each="accountDto, i: ${accountDto}">
-        <form th:method="post" th:action="@{/register/update}" th:object="${AccountUpdateDto}">
+<div sec:authorize="isAuthenticated()"
+     style="border: black solid 1px; width: 1350px; padding: 10px;
+         display: flex; align-items: stretch; margin-top: 10px; flex-direction: row;"
+     th:each="accountDto, i: ${accountDto}">
+    <form th:method="post" th:action="@{/register/update}" th:object="${AccountUpdateDto}">
 
-            <h2 th:text="'유저 기본정보 변경'"></h2>
+        <h2 th:text="'유저 기본정보 변경'"></h2>
 
-            <h4 style="display: inline-block; width: 150px" th:text="'User Email : '"></h4>
-            <input style="margin-left: 10px; width: 200px" type="text" name="afterEmail" th:value="${accountDto.email}"/></br>
+        <h4 style="display: inline-block; width: 150px" th:text="'User Email : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="text" name="afterEmail"
+               th:value="${accountDto.email}"/></br>
 
-            <h4 style="display: inline-block; width: 150px" th:text="'Password : '"></h4>
-            <input style="margin-left: 10px; width: 200px" type="password" name="password"/></br>
+        <h4 style="display: inline-block; width: 150px" th:text="'Password : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="password" name="password"/></br>
 
-            <input style="margin-left: 10px; width: 200px; display: none" type="text" name="beforeEmail" th:value="${accountDto.email}"/></br>
+        <input style="margin-left: 10px; width: 200px; display: none" type="text" name="beforeEmail"
+               th:value="${accountDto.email}"/></br>
 
-            <input type="submit" th:value="'기본 회원정보 저장'"/></br>
-        </form>
-    </div>
+        <input type="submit" th:value="'기본 회원정보 저장'"/></br>
+    </form>
 
-    <div sec:authorize="isAuthenticated()"
-         style="border: black solid 1px; width: 1350px; padding: 10px;
-         display: flex; align-items: stretch; margin-top: 10px; flex-direction: row;" th:each="accountDetails, i: ${accountDetails}">
-        <form th:method="post" th:action="@{/register/updateDetails}" th:object="${AccountDetailsUpdateDto}">
+</div>
 
-            <h2 th:text="'유저 상세정보 변경'"></h2>
+<div sec:authorize="isAuthenticated()"
+     style="border: black solid 1px; width: 1350px; padding: 10px;
+         display: flex; align-items: stretch; margin-top: 10px; flex-direction: row;"
+     th:each="accountDetails, i: ${accountDetails}">
+    <form th:method="post" th:action="@{/register/updateDetails}" th:object="${AccountDetailsUpdateDto}">
 
-            <h4 style="display: inline-block; width: 150px" th:text="'User Name : '"></h4>
-            <input style="margin-left: 10px; width: 200px" type="text" name="name" th:value="${accountDetails.name}"/></br>
+        <h2 th:text="'유저 상세정보 변경'"></h2>
 
-            <h4 style="display: inline-block; width: 150px" th:text="'Is Dormant : '"></h4>
-            <input style="margin-left: 10px; width: 200px;" type="text" th:value="${accountDetails.isDormant}" readonly="readonly"/>
-            <select name="isDormant">
-                <option th:value="0" th:text="'false'">
-                </option>
-                <option th:value="1" th:text="'true'">
-                </option>
-            </select>
-            </br>
+        <h4 style="display: inline-block; width: 150px" th:text="'User Name : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="text" name="name" th:value="${accountDetails.name}"/></br>
 
-            <h4 style="display: inline-block; width: 150px" th:text="'profileImage : '"></h4>
-            <input style="margin-left: 10px; width: 200px" type="text" name="profileImage" th:value="${accountDetails.imageFileName}"/></br>
+        <h4 style="display: inline-block; width: 150px" th:text="'Is Dormant : '"></h4>
+        <input style="margin-left: 10px; width: 200px;" type="text" th:value="${accountDetails.isDormant}"
+               readonly="readonly"/>
+        <select name="isDormant">
+            <option th:value="0" th:text="'false'">
+            </option>
+            <option th:value="1" th:text="'true'">
+            </option>
+        </select>
+        </br>
 
-            <h4 style="display: inline-block; width: 150px" th:text="'registerDate : '"></h4>
-            <input style="margin-left: 10px; width: 200px" type="text" th:value="${accountDetails.registerDate}" readonly="readonly"/></br>
+        <h4 style="display: inline-block; width: 150px" th:text="'profileImage : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="text" name="profileImage"
+               th:value="${accountDetails.imageFileName}"/></br>
 
-            <input style="margin-left: 10px; width: 200px; display: none" type="text" name="accountEmail" th:value="${accountDto.email}"/></br>
+        <h4 style="display: inline-block; width: 150px" th:text="'registerDate : '"></h4>
+        <input style="margin-left: 10px; width: 200px" type="text" th:value="${accountDetails.registerDate}"
+               readonly="readonly"/></br>
 
-            <input type="submit" th:value="'상세 회원정보 저장'"/></br>
-        </form>
-    </div>
+        <input style="margin-left: 10px; width: 200px; display: none" type="text" name="accountEmail"
+               th:value="${accountDto.email}"/></br>
+
+        <input type="submit" th:value="'상세 회원정보 저장'"/></br>
+    </form>
+</div>
+<br>
+<form th:method="delete" th:action="@{/api/accountDelete}">
+    <input type="submit" th:value="'탈퇴하기<위험>'" style="color: red"/>
+</form>
 
 </body>
 

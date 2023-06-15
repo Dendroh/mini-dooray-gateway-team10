@@ -124,4 +124,15 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
 
     return Optional.ofNullable(response.getBody());
   }
+
+  @Override
+  public void deleteUserBy(String accountEmail) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    restTemplate.exchange("http://localhost:8081/accounts/" + accountEmail,
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
 }

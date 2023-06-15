@@ -55,9 +55,9 @@ public class MainController {
       projectMemberDto.setProjectTitle(projectRegisterDto.getProjectTitle());
       projectMemberDto.setMemberEmail(principal.getName());
       restTemplateProjectService.addProjectMemberBy(projectMemberDto);
-      model.addAttribute("statusMessage", "프로젝트 생성에 성공했습니다!");
+      model.addAttribute("statusMessage", "프로젝트 생성에 성공했습니다.");
     } else {
-      model.addAttribute("statusMessage", "프로젝트 생성에 실패했습니다!");
+      model.addAttribute("statusMessage", "프로젝트 생성에 실패했습니다.");
     }
     return "redirect:/api";
   }
@@ -88,9 +88,9 @@ public class MainController {
   public String taskRegisterPosting(Model model, Principal principal, @ModelAttribute("taskRegisterDto") TaskRegisterDto taskRegisterDto,
                                        BindingResult bindingResult) {
     if(restTemplateTaskService.createTaskBy(taskRegisterDto).isPresent()) {
-      model.addAttribute("statusMessage", "프로젝트 생성에 성공했습니다!");
+      model.addAttribute("statusMessage", "테스크 생성에 성공했습니다.");
     } else {
-      model.addAttribute("statusMessage", "프로젝트 생성에 실패했습니다!");
+      model.addAttribute("statusMessage", "테스크 생성에 실패했습니다.");
     }
     return "redirect:/api";
   }
@@ -124,9 +124,9 @@ public class MainController {
   public String projectEditPutting(Model model, Principal principal, @ModelAttribute("projectUpdateDto") ProjectUpdateDto projectUpdateDto,
                                    BindingResult bindingResult) {
     if(restTemplateProjectService.updateProjectBy(projectUpdateDto).isPresent()) {
-      model.addAttribute("statusMessage", "프로젝트 생성에 성공했습니다!");
+      model.addAttribute("statusMessage", "프로젝트 수정에 성공했습니다.");
     } else {
-      model.addAttribute("statusMessage", "프로젝트 생성에 실패했습니다!");
+      model.addAttribute("statusMessage", "프로젝트 수정에 실패했습니다.");
     }
     return "redirect:/api";
   }
@@ -134,6 +134,7 @@ public class MainController {
   @DeleteMapping("/api/projectEdit")
   public String projectEditDeleting(Model model, Principal principal, @RequestParam("projectId") String projectId) {
     restTemplateProjectService.deleteProjectBy(projectId);
+    model.addAttribute("statusMessage", "프로젝트가 삭제되었습니다.");
     return "redirect:/api";
   }
 
@@ -155,15 +156,16 @@ public class MainController {
                                    BindingResult bindingResult) {
     if(restTemplateTaskService.updateTaskBy(taskUpdateDto).isPresent()) {
 
-      model.addAttribute("statusMessage", "프로젝트 생성에 성공했습니다!");
+      model.addAttribute("statusMessage", "테스크 수정에 성공했습니다.");
     } else {
-      model.addAttribute("statusMessage", "프로젝트 생성에 실패했습니다!");
+      model.addAttribute("statusMessage", "테스크 수정에 실패했습니다.");
     }
     return "redirect:/api";
   }
 
   @DeleteMapping("/api/taskEdit")
   public String taskEditDeleting(Model model, Principal principal, @RequestParam("taskId") String taskId) {
+    model.addAttribute("statusMessage", "테스크를 삭제했습니다.");
     restTemplateTaskService.deleteTaskBy(taskId);
     return "redirect:/api";
   }

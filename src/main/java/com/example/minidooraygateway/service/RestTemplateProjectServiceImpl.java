@@ -185,6 +185,17 @@ public class RestTemplateProjectServiceImpl implements RestTemplateProjectServic
   }
 
   @Override
+  public void deleteMemberBy(String accountEmail) {
+
+    HttpEntity<String> httpEntity = createHttpEntity(null);
+
+    restTemplate.exchange("http://localhost:8082/members/email/" + accountEmail,
+            HttpMethod.DELETE,
+            httpEntity,
+            new ParameterizedTypeReference<>() {});
+  }
+
+  @Override
   public Optional<ProjectDto> addProjectMemberBy(ProjectMemberDto projectMemberDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(projectMemberDto);
