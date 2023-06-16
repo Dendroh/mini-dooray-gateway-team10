@@ -15,4 +15,6 @@ public class AccountDto {
 
   private String password;
 
+  private String name;
+
 }

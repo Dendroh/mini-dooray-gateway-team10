@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="contentinfo">
+    <form th:method="put" th:action="@{/api/taskEdit}" th:object="${taskUpdateDto}">
+        <p style="font-size: 12px; color: dimgray;">수정완료</p>
+        <input type="submit" th:value="'테스크 수정'"/>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; visibility: hidden"
+               type="text" name="taskId" th:value="${taskView.taskId}"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; margin-top: 0.5em; margin-bottom: 0.5em"
+               type="text" name="newTaskTitle" th:value="${taskView.taskTitle}"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">테스크 본문</p>
+        <textarea th:text="${taskView.taskContent}" style="height: 200px; width: 900px; resize: none; border: none;"
+                  name="newTaskContent"></textarea></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">테스크 등록자</p>
+        <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+            <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+                <p style="font-size: 12px;" th:text="${taskView.writerName}"></p>
+            </div>
+            <div style="flex: 6; padding: 5px">
+                <p style="font-size: 12px;" th:text="${taskView.writerEmail}"></p>
+            </div>
+        </div>
+        <hr>
+    </form>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록 진행도</p>
+    <table>
+        <tr th:each="item, i: ${mileStoneView}">
+            <td>
+                <span th:text = "${item.milestoneName}"></span>
+            </td>
+        </tr>
+    </table>
+
+    <form th:method="post" th:action="@{/api/task/milestone}" th:object="${taskMileStonePostDto}">
+        <select name="milestoneName">
+            <option th:each="item, i: ${mileStoneList}" th:value="${item.milestoneName}" th:text="${item.milestoneName}">
+            </option>
+        </select>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
+        <input type="submit" th:value="'새로운 진행상황 등록'"/>
+    </form>
+
+    <form th:method="delete" th:action="@{/api/task/milestone}">
+        <select name="mileStoneName">
+            <option th:each="item, i: ${mileStoneView}" th:value="${item.milestoneName}" th:text="${item.milestoneName}">
+            </option>
+        </select>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
+        <input type="submit" th:value="'진행상황 삭제'"/>
+    </form>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록 태그</p>
+    <table>
+        <tr th:each="item, i: ${tagView}" th:object="${taskTagPostDto}">
+            <td>
+                <span th:text = "${item.tagName}" th:style="'color: ' + ${item.tagColor} + ';' "></span>
+            </td>
+        </tr>
+    </table>
+
+    <form th:method="post" th:action="@{/api/task/tag}" th:object="${taskTagPostDto}">
+        <select name="tagName">
+            <option th:each="item, i: ${tagList}" th:value="${item.tagName}" th:text="${item.tagName}">
+            </option>
+        </select>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
+        <input type="submit" th:value="'새로운 태그 등록'"/>
+    </form>
+
+    <form th:method="delete" th:action="@{/api/task/tag}">
+        <select name="tagName">
+            <option th:each="item, i: ${tagView}" th:value="${item.tagName}" th:text="${item.tagName}">
+            </option>
+        </select>
+        <input style="display: none" th:value="${taskView.taskTitle}" name="taskName"/>
+        <input type="submit" th:value="'태그 삭제'"/>
+    </form>
+    <hr>
+
+    <form th:method="delete" th:action="@{/api/taskEdit(taskId=${taskView.taskId})}">
+        <p style="font-size: 12px; color: dimgray;">프로젝트 삭제하기</p>
+        <input type="submit" th:value="'삭제하기<위험>'" style="color: red"/>
+    </form>
+</div>
+
+</html>

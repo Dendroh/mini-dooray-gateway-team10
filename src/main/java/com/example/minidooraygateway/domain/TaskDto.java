@@ -4,15 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Component
 public class TaskDto {
+  private Integer taskId;
 
-  private Integer accountId;
+  private String taskTitle;
 
-  private String email;
+  private String taskContent;
 
-  private String password;
+  private LocalDateTime writeTime;
+
+  private String writerName;
+
+  private String writerEmail;
+
+  private Integer projectId;
 
 }

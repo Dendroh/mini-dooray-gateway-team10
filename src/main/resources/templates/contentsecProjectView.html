@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="contentinfo">
+
+    <p style="font-size: 12px; color: dimgray;">프로젝트 타이틀</p>
+    <p style="font-size: 20px; font-weight: bold;" th:text="${projectView.projectTitle}"></p>
+    <hr>
+
+    <p style="font-size: 12px; color: dimgray;">프로젝트 관리자</p>
+    <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+        <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+            <p style="font-size: 12px;" th:text="${projectView.adminName}"></p>
+        </div>
+        <div style="flex: 6; padding: 5px">
+            <p style="font-size: 12px;" th:text="${projectView.adminEmail}"></p>
+        </div>
+    </div>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">프로젝트 상태</p>
+    <input style="width: 900px; font-size: 20px; font-weight: bold;border: none;" readonly="readonly"
+           type="text" name="newStatusName" th:value="${projectView.codeName}"/></br>
+    <hr>
+
+    <p style="font-size: 12px; color: dimgray;">프로젝트 참여인원</p>
+    <table>
+        <tr th:each="item, i: ${memberView}">
+            <td>
+                <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+                    <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+                        <p style="font-size: 12px;" th:text="${item.memberName}"></p>
+                    </div>
+                    <div style="flex: 6; padding: 5px">
+                        <p style="font-size: 12px;" th:text="${item.memberEmail}"></p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr>
+
+    <p style="font-size: 12px; color: dimgray;">프로젝트 등록 진행도</p>
+    <table>
+        <tr th:each="item, i: ${mileStoneView}">
+            <td>
+                <span th:text = "${item.milestoneName}"></span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+
+    <p style="font-size: 12px; color: dimgray;">프로젝트 등록 태그</p>
+    <table>
+        <tr th:each="item, i: ${tagView}">
+            <td>
+                <span th:text = "${item.tagName}"></span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+
+</div>
+
+</html>

@@ -1,15 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="projectinfo">
+    <table>
+        <tr th:each="project, i: ${projectList}">
+            <td>
+                <div style="border: black solid 1px; width: 350px;">
+                    <div style="margin: 10px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <a th:href="@{/api/projectView(projectId=${project.projectId})}"
+                               style="background-color: white; color: black; text-decoration: none; font-size: 20px; font-weight: bold; margin-left: 15px;"
+                               th:text="${project.projectTitle}"></a>
+                            <div style="margin-left: 15px" th:if="${#authentication.name == project.adminEmail}">
+                                <a th:href="@{/api/projectEdit(projectId=${project.projectId})}" style="font-size: 13px;">수정</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <details>
+                            <summary>Task List</summary>
+                            <hr>
+                            <div th:each="task, i: ${taskList}"
+                                 th:if="${task.projectId} == ${project.projectId}"
+                                 style="display: flex; justify-content: space-between;">
 
-    <h4>프로젝트 영역</h4>
+                                <a th:href="@{/api/taskView(taskId=${task.taskId}, taskName=${task.taskTitle})}"
+                                   style="background-color: white; color: black; text-decoration: none; font-size: 16px; margin-left: 25px;"
+                                   th:text="'- '+${task.taskTitle}"></a>
 
-    <form th:method="get" th:action="@{/register}">
-        <input type="submit" th:value="'새로운 프로젝트 등록'"/>
+                                <div style="margin-left: 15px">
+                                    <a th:href="@{/api/taskEdit(taskId=${task.taskId}, taskName=${task.taskTitle}, projectId=${project.projectId})}" style="font-size: 13px;">수정</a>
+                                </div>
+
+                            </div>
+
+                        </details>
+                        <hr>
+                    </div>
+                    <form th:method="get" th:action="@{/api/taskRegister}">
+                        <input type="hidden" name="projectId" th:value="${project.projectId}" />
+                        <input type="submit" th:value="'새로운 테스크 등록'" style="margin: 20px 10px 10px;"/>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <form th:method="get" th:action="@{/api/projectRegister}">
+        <input type="submit" th:value="'새로운 프로젝트 등록'" style="margin: 20px 10px 10px;"/>
     </form>
-
 </div>
-
 </html>

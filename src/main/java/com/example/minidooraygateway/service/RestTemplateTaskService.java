@@ -3,38 +3,33 @@ package com.example.minidooraygateway.service;
 import com.example.minidooraygateway.domain.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RestTemplateTaskService {
 
-  List<TaskDto> selectAllTaskBy(String projectId);
+  List<TaskDto> selectAllTaskBy(String accountEmail);
 
-  void createTaskBy(TaskDto taskDto);
+  Optional<TaskDto> createTaskBy(TaskRegisterDto taskRegisterDto);
 
-  void updateTaskBy(TaskDto taskDto);
+  TaskDto selectTaskBy(String taskId);
 
-  void deleteTaskBy(String taskId);
+  Optional<TaskDto> updateTaskBy(TaskUpdateDto taskUpdateDto);
 
-
-  List<CommentDto> selectAllCommentBy(String taskId);
-
-  void createCommentBy(CommentDto commentDto);
-
-  void updateCommentBy(CommentDto commentDto);
-
-  void deleteCommentBy(String commentId);
+  void deleteTaskBy(String projectId);
 
 
-  List<TagDto> selectAllTagBy(String taskId);
-
-  void attachTag();
-
-  void detachTag();
+  Optional<TaskMileStoneDto> addTaskMileStonesBy(TaskMileStonePostDto taskMileStonePostDto);
+  List<MileStoneDto> selectTaskMileStonesBy(String taskName);
+  void delTaskMileStonesBy(String taskName, String mileStoneName);
 
 
-  List<MileStoneDto> selectAllMileStoneBy(String taskId);
 
-  void attachMileStone();
+  Optional<TaskTagDto> addTaskTagsBy(TaskTagPostDto taskTagPostDto);
+  List<TagDto> selectTaskTagsBy(String taskName);
+  void delTaskTagsBy(String taskName, String tagName);
 
-  void detachMileStone();
-
+  Optional<CommentDto> addTaskCommentsBy(CommentRegisterDto commentRegisterDto);
+  List<CommentDto> selectTaskCommentsBy(String taskId);
+  Optional<CommentDto> updateTaskCommentBy(CommentUpdateDto commentUpdateDto);
+  void delTaskCommentsBy(String commentId);
 }

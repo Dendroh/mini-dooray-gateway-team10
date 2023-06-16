@@ -3,38 +3,42 @@ package com.example.minidooraygateway.service;
 import com.example.minidooraygateway.domain.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RestTemplateProjectService {
 
-  List<ProjectDto> selectAllProjectBy(String accountId);
+  List<ProjectDto> selectAllProjectBy(String accountEmail);
 
-  void createProjectBy(ProjectDto projectDto);
+  Optional<ProjectDto> createProjectBy(ProjectRegisterDto projectRegisterDto);
 
-  void updateProjectBy(ProjectDto projectDto);
+  ProjectDto selectProjectBy (String projectId);
 
+  List<MemberDto> selectMembersBy(String projectId);
 
-  List<TagDto> selectAllTagBy(String projectId);
+  List<MemberDto> selectMemberAllBy();
 
-  void createTagBy(TagDto tagDto);
+  Optional<ProjectDto> updateProjectBy (ProjectUpdateDto projectUpdateDto);
 
-  void updateTagBy(TagDto tagDto);
-
-  void deleteTagBy(String tagId);
-
-
-  List<MileStoneDto> selectAllMileStoneBy(String projectId);
-
-  void createMileStoneBy(MileStoneDto mileStoneDto);
-
-  void updateMileStoneBy(MileStoneDto mileStoneDto);
-
-  void deleteMileStoneBy(String mileStoneId);
+  void deleteProjectBy (String projectId);
 
 
-  List<MemberDto> selectAllMemberBy(String projectId);
+  Optional<MemberDto> createMemberBy(MemberRegisterDto memberRegisterDto);
+  Optional<MemberDto> updateMemberBy(MemberUpdateDto memberUpdateDto);
+  Optional<MemberDto> updateMemberDetailsBy(MemberDetailsUpdateDto memberDetailsUpdateDto);
+  void deleteMemberBy(String accountEmail);
+  Optional<ProjectDto> addProjectMemberBy (ProjectMemberDto projectMemberDto);
+  void delProjectMemberBy (ProjectMemberDto projectMemberDto);
 
-  void attachMember();
 
-  void detachMember();
+  Optional<MileStoneDto> addProjectMileStonesBy(MileStoneRegisterDto mileStoneRegisterDto);
 
+  List<MileStoneDto> selectProjectMileStonesBy(String projectId);
+  void delProjectMileStonesBy(String milestoneId);
+
+
+
+  Optional<TagDto> addProjectTagsBy(TagRegisterDto tagRegisterDto);
+
+  List<TagDto> selectProjectTagsBy(String projectId);
+  void delProjectTagsBy(String milestoneId);
 }

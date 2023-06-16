@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="contentinfo">
+    <form th:method="post" th:action="@{/api/taskRegister}" th:object="${taskRegisterDto}">
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none; display: none;
+        margin-top: 0.5em; margin-bottom: 0.5em;" type="text" name="projectId"
+               th:value="${projectId}" readonly="readonly"/></br>
+        <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none;
+        margin-top: 0.5em; margin-bottom: 0.5em" type="text" name="taskTitle"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">테스크 등록자</p>
+        <input style="width: 900px; font-size: 20px; font-weight: bold;border: none;
+        margin-top: 0.5em; margin-bottom: 0.5em" type="text" name="writerEmail"
+               th:value="${writerEmail}" readonly="readonly"/></br>
+        <hr>
+        <p style="font-size: 12px; color: dimgray;">테스크 본문</p>
+        <textarea style="height: 400px; width: 900px; resize: none; border: none;" name="taskContent"></textarea>
+        <hr>
+        <div>
+            <input type="submit" th:value="'새로운 테스크 등록'"/>
+        </div>
+    </form>
+</div>
+
+</html>

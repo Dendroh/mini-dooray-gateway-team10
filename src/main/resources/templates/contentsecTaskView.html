@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko,en" xmlns:th="http://www.thymeleaf.org"
+>
+
+<div th:fragment="contentinfo">
+    <p style="font-size: 12px; color: dimgray;">테스크 타이틀</p>
+    <p style="font-size: 20px; font-weight: bold;" th:text="${taskView.taskTitle}"></p>
+    <hr>
+
+    <p style="font-size: 12px; color: dimgray;">테스크 등록자</p>
+    <div style="border: black solid 1px; display: flex; align-items: stretch; flex-direction: row; height: 30px; width: 400px">
+        <div style="flex: 2; border-right: 1px solid #b6bcc0; padding: 5px">
+            <p style="font-size: 12px;" th:text="${taskView.writerName}"></p>
+        </div>
+        <div style="flex: 6; padding: 5px">
+            <p style="font-size: 12px;" th:text="${taskView.writerEmail}"></p>
+        </div>
+    </div>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록 진행도</p>
+    <table>
+        <tr th:each="item, i: ${mileStoneView}">
+            <td>
+                <span th:text="${item.milestoneName}"></span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 등록 태그</p>
+    <table>
+        <tr th:each="item, i: ${tagView}">
+            <td>
+                <span th:text="${item.tagName}"></span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">테스크 본문</p>
+    <textarea th:text="${taskView.taskContent}" style="height: 200px; width: 900px; resize: none; border: none;"
+              readonly="readonly"></textarea>
+    <hr>
+    <p style="font-size: 12px; color: dimgray;">코멘트</p>
+    <form th:method="post" th:action="@{/api/task/comments}" th:object="${commentCommitDto}">
+        <textarea style="height: 40px; width: 700px; resize: none;" name="content"></textarea><br>
+        <input name="taskId" th:value="${taskView.taskId}" style="display: none">
+        <input type="submit" th:value="'코멘트 남기기'"/>
+    </form>
+
+    <table>
+        <tr th:each="item, i: ${commentView}">
+            <td>
+                <div style="display: flex; flex-direction: row; align-items: end; justify-content: space-between; width: 800px; border: black solid 1px; padding: 5px">
+                    <form th:method="put" th:action="@{/api/task/comments}" th:object="${commentUpdateDto}">
+                    <textarea style="width: 400px; resize: none" th:text="${item.content}"
+                              name="content"></textarea>
+                        <span style="display: inline-block; width: 200px;"
+                              th:text="${item.writerName} + ' / ' + ${item.writerEmail}"></span>
+                        <span style="display: inline-block; width: 600px;" th:text="${item.writeTime}"></span>
+                        <input th:value="${item.commentId}" style="display: none" name="commentId"/>
+                        <div th:if="${#authentication.name == item.writerEmail}">
+                            <input type="submit" th:value="'코멘트 수정'"/>
+                        </div>
+                    </form>
+                    <form th:method="delete" th:action="@{/api/task/comments}">
+                        <input th:value="${item.commentId}" style="display: none" name="commentId"/>
+                        <div th:if="${#authentication.name == item.writerEmail}">
+                            <input type="submit" th:value="'코멘트 삭제'"/>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr>
+</div>
+
+</html>
