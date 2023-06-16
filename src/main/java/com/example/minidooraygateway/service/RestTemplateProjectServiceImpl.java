@@ -4,17 +4,15 @@ import com.example.minidooraygateway.domain.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
-@Component
+@Service
 @RequiredArgsConstructor
 public class RestTemplateProjectServiceImpl implements RestTemplateProjectService {
 

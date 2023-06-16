@@ -4,7 +4,6 @@ import com.example.minidooraygateway.domain.AccountDto;
 import com.example.minidooraygateway.domain.AccountGetDto;
 import com.example.minidooraygateway.domain.AccountUpdateDto;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -16,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-class RestTemplateAccountServiceImplTest {
-
+class RestTemplateAccountServiceTest {
 
   private final RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
 
@@ -65,7 +63,6 @@ class RestTemplateAccountServiceImplTest {
     assertEquals(Optional.of(expectedBody), actualResponse);
   }
 
-
   @Test
   void updateUserBy() {
     AccountUpdateDto inputAccountDto = new AccountUpdateDto();
@@ -100,10 +97,8 @@ class RestTemplateAccountServiceImplTest {
             eq(new ParameterizedTypeReference<>() {})
     )).thenReturn(null);
 
-    // When
     restTemplateAccountService.deleteUserBy(accountEmail);
 
-    // Then
     verify(restTemplate).exchange(
             eq("http://localhost:8081/accounts/" + accountEmail),
             eq(HttpMethod.DELETE),
