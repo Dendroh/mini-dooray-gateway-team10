@@ -99,11 +99,11 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
   }
 
   @Override
-  public Optional<AccountUpdateDto> updateUserBy(AccountUpdateDto accountUpdateDto) {
+  public Optional<AccountGetDto> updateUserBy(AccountUpdateDto accountUpdateDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(accountUpdateDto);
 
-    ResponseEntity<AccountUpdateDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
+    ResponseEntity<AccountGetDto> response = restTemplate.exchange("http://localhost:8081/accounts/",
             HttpMethod.PUT,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -112,11 +112,11 @@ public class RestTemplateAccountServiceImpl implements RestTemplateAccountServic
   }
 
   @Override
-  public Optional<AccountDetailsUpdateDto> updateUserDetailsBy(AccountDetailsUpdateDto accountDetailsUpdateDto) {
+  public Optional<AccountDetailsDto> updateUserDetailsBy(AccountDetailsUpdateDto accountDetailsUpdateDto) {
 
     HttpEntity<String> httpEntity = createHttpEntity(accountDetailsUpdateDto);
 
-    ResponseEntity<AccountDetailsUpdateDto> response = restTemplate.exchange("http://localhost:8081/accountDetails/",
+    ResponseEntity<AccountDetailsDto> response = restTemplate.exchange("http://localhost:8081/accountDetails/",
             HttpMethod.PUT,
             httpEntity,
             new ParameterizedTypeReference<>() {});
