@@ -14,9 +14,9 @@ public interface RestTemplateAccountService {
 
   Optional<AccountDetailsDto> createUserDetailBy(AccountDetailsPostDto accountDetailsPostDto);
 
-  Optional<AccountUpdateDto> updateUserBy(AccountUpdateDto accountUpdateDto);
+  Optional<AccountGetDto> updateUserBy(AccountUpdateDto accountUpdateDto);
 
-  Optional<AccountDetailsUpdateDto> updateUserDetailsBy(AccountDetailsUpdateDto accountDetailsUpdateDto);
+  Optional<AccountDetailsDto> updateUserDetailsBy(AccountDetailsUpdateDto accountDetailsUpdateDto);
 
   void deleteUserBy(String accountId);
 }
